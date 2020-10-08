@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 
 class Recipe {
+  final String id;
   final String title;
   final String imageUrl;
   final int duration;
@@ -13,7 +14,8 @@ class Recipe {
   final String isVegetarian;
 
   Recipe(
-      {@required this.title,
+      {@required this.id,
+      @required this.title,
       @required this.imageUrl,
       @required this.duration,
       @required this.ingredients,
