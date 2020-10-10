@@ -5,13 +5,13 @@ class Recipe {
   final String title;
   final String imageUrl;
   final int duration;
-  final List<String> ingredients;
-  final List<String> categories;
-  final List<String> steps;
+  final List<dynamic> ingredients;
+  final List<dynamic> categories;
+  final List<dynamic> steps;
   final String chef;
   final String complexity;
   final String affordability;
-  final String isVegetarian;
+  final bool isVegetarian;
 
   Recipe(
       {@required this.id,
