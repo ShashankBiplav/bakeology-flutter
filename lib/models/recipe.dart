@@ -9,6 +9,8 @@ class Recipe {
   final List<dynamic> categories;
   final List<dynamic> steps;
   final String chef;
+  final String chefName;
+  final String chefImageUrl;
   final String complexity;
   final String affordability;
   final bool isVegetarian;
@@ -22,6 +24,8 @@ class Recipe {
       @required this.categories,
       @required this.steps,
       @required this.chef,
+      @required this.chefName,
+      @required this.chefImageUrl,
       @required this.complexity,
       @required this.affordability,
       @required this.isVegetarian});

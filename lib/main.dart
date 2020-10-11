@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
           fontFamily: 'Poppins',
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: SplashScreen(),
+        home: HomeScreen(),
         routes: {
           HomeScreen.routeName: (ctx) => HomeScreen(),
           RecipeDetailScreen.routeName: (ctx) => RecipeDetailScreen(),

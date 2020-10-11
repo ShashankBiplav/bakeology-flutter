@@ -5,7 +5,7 @@ class Category {
   final String colorA;
   final String colorB;
   final String iconImageUrl;
-  final List<String> recipes;
+  final List<dynamic> recipes;
 
   Category(
       {@required this.title,

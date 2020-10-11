@@ -22,7 +22,7 @@ class RecipeProvider with ChangeNotifier {
         return null; //TODO: check if we can simply return without 'null'
       }
       final List<Recipe> loadedRecipes = [];
-      print(extractedData["recipes"]);
+      // print(extractedData["recipes"]);
       extractedData["recipes"].forEach((recipeData) {
         loadedRecipes.add(
           Recipe(
@@ -35,6 +35,8 @@ class RecipeProvider with ChangeNotifier {
               steps: recipeData["steps"],
               categories: recipeData["categories"],
               chef: recipeData["chef"]["_id"],
+              chefName: recipeData["chef"]["name"],
+              chefImageUrl: recipeData["chef"]["profileImageUrl"],
               complexity: recipeData["complexity"],
               ingredients: recipeData["ingredients"]),
         );
