@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 
-class RecipeGridItem extends StatelessWidget {
+class CategoryListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.blue,
+        color: Colors.amber,
         borderRadius: BorderRadius.all(
           Radius.circular(15.0),
         ),
       ),
-      margin: EdgeInsets.fromLTRB(4, 0, 4, 0),
-      width: 100,
+      margin: EdgeInsets.fromLTRB(5, 8, 5, 0),
+      width: 180,
       // color: Colors.amber,
     );
   }

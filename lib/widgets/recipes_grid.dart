@@ -21,22 +21,24 @@ class _RecipesGridState extends State<RecipesGrid> {
     final recipeData = Provider.of<RecipeProvider>(context);
     final recipes = recipeData.recipes;
     // print(recipes);
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
     return GridView.builder(
-        padding: const EdgeInsets.all(10),
+        padding: const EdgeInsets.fromLTRB(10, 0, 10, 5),
         itemCount: recipes.length,
         itemBuilder: (ctx, i) => Container(
-              height: 10,
-              width: 10,
+              // height: 100,
+              // width: 100,
               color: Colors.blue,
-              child: ListView.builder(
-                itemCount: recipes[i].steps.length,
-                itemBuilder: (ctx, index) => ListTile(
-                  title: Text('${index + 1}. ${recipes[i].steps[index]}'),
-                ),
-              ),
+              // child: ListView.builder(
+              //   itemCount: recipes[i].steps.length,
+              //   itemBuilder: (ctx, index) => ListTile(
+              //     title: Text('${index + 1}. ${recipes[i].steps[index]}'),
+              //   ),
+              // ),
             ),
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
+        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+          maxCrossAxisExtent: 200,
           childAspectRatio: 9 / 13,
           crossAxisSpacing: 10,
           mainAxisSpacing: 10,

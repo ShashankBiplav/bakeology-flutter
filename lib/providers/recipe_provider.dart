@@ -41,7 +41,7 @@ class RecipeProvider with ChangeNotifier {
               ingredients: recipeData["ingredients"]),
         );
       });
-      // print(extractedData);
+      // print(extractedData["recipes"]);
       _recipes = loadedRecipes;
       notifyListeners();
     } catch (error) {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../widgets/recipes_grid.dart';
+import '../widgets/category_list.dart';
 
 class HomeScreen extends StatelessWidget {
   static const routeName = '/home-screen';
@@ -9,9 +10,40 @@ class HomeScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.transparent,
+          elevation: 0,
+          backgroundColor: Colors.white,
+          title: Text(
+            'Bakeology',
+            style: TextStyle(
+                color: Colors.black, fontWeight: FontWeight.w700, fontSize: 22),
+            textAlign: TextAlign.center,
+          ),
         ),
-        body: RecipesGrid(),
+        body: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          verticalDirection: VerticalDirection.down,
+          // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 10, 0, 0),
+              child: Text(
+                'Categories',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+              ),
+            ),
+            Expanded(flex: 1,child: CategoryList()),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20,10, 0,10),
+              child: Text(
+                'Recipes',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+              ),
+            ),
+            Expanded(flex: 2,child: RecipesGrid()),
+          ],
+        ),
       ),
     );
   }
