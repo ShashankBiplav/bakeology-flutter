@@ -49,4 +49,9 @@ class RecipeProvider with ChangeNotifier {
       throw error;
     }
   }
+
+  //function to fetch a product via its id
+  Recipe findById(String recipeId){
+     return _recipes.firstWhere((recipe) => recipe.id == recipeId);
+  }
 }

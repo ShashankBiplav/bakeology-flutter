@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 
 import '../providers/recipe_provider.dart';
 
+import '../widgets/recipe_grid_item.dart';
+
 class RecipesGrid extends StatefulWidget {
   @override
   _RecipesGridState createState() => _RecipesGridState();
@@ -17,34 +19,25 @@ class _RecipesGridState extends State<RecipesGrid> {
 
   @override
   Widget build(BuildContext context) {
-    //TODO:change container to custom widget
     final recipeData = Provider.of<RecipeProvider>(context);
     final fetchedRecipes = recipeData.recipes;
-    // print(fetchedRecipes);
-    double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
     return GridView.builder(
-        padding: const EdgeInsets.fromLTRB(10, 0, 10, 5),
-        itemCount: fetchedRecipes.length,
-        itemBuilder: (ctx, i) => ClipRRect(
-          borderRadius: BorderRadius.circular(15),
-                  child: Container(
-                // height: 100,
-                // width: 100,
-                color: Colors.blue,
-                // child: ListView.builder(
-                //   itemCount: recipes[i].steps.length,
-                //   itemBuilder: (ctx, index) => ListTile(
-                //     title: Text('${index + 1}. ${recipes[i].steps[index]}'),
-                //   ),
-                // ),
-              ),
-        ),
-        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-          maxCrossAxisExtent: 200,
-          childAspectRatio: 9 / 13,
-          crossAxisSpacing: 10,
-          mainAxisSpacing: 10,
-        ));
+      padding: const EdgeInsets.fromLTRB(10, 0, 10, 5),
+      itemCount: fetchedRecipes.length,
+      itemBuilder: (ctx, i) => RecipeGridItem(
+        recipeId: fetchedRecipes[i].id,
+        recipeTitle: fetchedRecipes[i].title,
+        recipeImageUrl: fetchedRecipes[i].imageUrl,
+        chefName: fetchedRecipes[i].chefName,
+        chefImageUrl: fetchedRecipes[i].chefImageUrl,
+        isVegetarian: fetchedRecipes[i].isVegetarian,
+      ),
+      gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+        maxCrossAxisExtent: 200,
+        childAspectRatio: 9 / 13,
+        crossAxisSpacing: 10,
+        mainAxisSpacing: 10,
+      ),
+    );
   }
 }
