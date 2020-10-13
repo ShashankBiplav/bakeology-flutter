@@ -7,11 +7,12 @@ class HomeScreen extends StatelessWidget {
   static const routeName = '/home-screen';
   @override
   Widget build(BuildContext context) {
+    var isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
           elevation: 0,
-          backgroundColor: Colors.white,
+          backgroundColor: Colors.transparent,
           title: Text(
             'Bakeology',
             style: TextStyle(
@@ -33,15 +34,15 @@ class HomeScreen extends StatelessWidget {
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
               ),
             ),
-            Expanded(flex: 1,child: CategoryList()),
+            Expanded(flex: 1, child: CategoryList()),
             Padding(
-              padding: const EdgeInsets.fromLTRB(20,10, 0,10),
+              padding: const EdgeInsets.fromLTRB(20, 10, 0, 10),
               child: Text(
                 'Recipes',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
               ),
             ),
-            Expanded(flex: 2,child: RecipesGrid()),
+            Expanded(flex: isPortrait ? 3 : 1, child: RecipesGrid()),
           ],
         ),
       ),

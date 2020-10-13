@@ -10,7 +10,7 @@ class CategoryList extends StatelessWidget {
       // width: MediaQuery.of(context).size.width,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: 3,
+        itemCount: 10,
         itemBuilder: (context, index) => CategoryListItem(),
       ),
     );

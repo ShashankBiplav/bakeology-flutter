@@ -11,7 +11,7 @@ class CategoryListItem extends StatelessWidget {
         ),
       ),
       margin: EdgeInsets.fromLTRB(5, 8, 5, 0),
-      width: 180,
+      width: 150,
       // color: Colors.amber,
     );
   }
