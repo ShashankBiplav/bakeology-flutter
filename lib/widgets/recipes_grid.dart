@@ -31,6 +31,7 @@ class _RecipesGridState extends State<RecipesGrid> {
         chefName: fetchedRecipes[i].chefName,
         chefImageUrl: fetchedRecipes[i].chefImageUrl,
         isVegetarian: fetchedRecipes[i].isVegetarian,
+        duration: fetchedRecipes[i].duration,
       ),
       gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
         maxCrossAxisExtent: 200,

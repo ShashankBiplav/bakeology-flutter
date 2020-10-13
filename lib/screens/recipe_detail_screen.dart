@@ -11,13 +11,24 @@ class RecipeDetailScreen extends StatelessWidget {
     final loadedRecipe =
         Provider.of<RecipeProvider>(context, listen: false).findById(recipeId);
     return Scaffold(
-      appBar: AppBar(
-        title: Text(loadedRecipe.id),
-      ),
-      body: Center(
-        child: Text(
-          loadedRecipe.duration.toString(),
-        ),
+      
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            expandedHeight: MediaQuery.of(context).size.height * 0.4,
+            pinned: true,
+            flexibleSpace: FlexibleSpaceBar(
+              title: Text(loadedRecipe.title),
+              background: Hero(
+                tag: loadedRecipe.id,
+                child: Image.network(
+                  'http://192.168.29.31:3300/'+loadedRecipe.imageUrl,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
