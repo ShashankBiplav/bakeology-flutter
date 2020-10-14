@@ -46,7 +46,7 @@ class RecipeGridItem extends StatelessWidget {
                   ),
                   child: Hero(
                     tag: recipeId,
-                                      child: Container(
+                    child: Container(
                       margin: EdgeInsets.fromLTRB(3, 0, 3, 0),
                       height: 180,
                       child: Image.network(
@@ -56,7 +56,7 @@ class RecipeGridItem extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height:9),
+                SizedBox(height: 9),
                 Text(
                   recipeTitle,
                   style: TextStyle(

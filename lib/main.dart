@@ -21,8 +21,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (ctx)=> RecipeProvider(),
-          child: MaterialApp(
+      create: (ctx) => RecipeProvider(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Bakeology',
         theme: ThemeData(
           primarySwatch: Colors.pink,
@@ -35,7 +36,8 @@ class MyApp extends StatelessWidget {
           HomeScreen.routeName: (ctx) => HomeScreen(),
           RecipeDetailScreen.routeName: (ctx) => RecipeDetailScreen(),
           ChefDetailScreen.routeName: (ctx) => ChefDetailScreen(),
-          CategorizedRecipesScreen.routeName: (ctx) => CategorizedRecipesScreen(),
+          CategorizedRecipesScreen.routeName: (ctx) =>
+              CategorizedRecipesScreen(),
           AllCategoriesScreen.routeName: (ctx) => AllCategoriesScreen(),
           FavouritesScreen.routeName: (ctx) => FavouritesScreen(),
           AuthenticationScreen.routeName: (ctx) => AuthenticationScreen(),

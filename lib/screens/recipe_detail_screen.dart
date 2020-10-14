@@ -23,6 +23,8 @@ class RecipeDetailScreen extends StatelessWidget {
                 tag: loadedRecipe.id,
                 child: Image.network(
                   'http://192.168.29.31:3300/'+loadedRecipe.imageUrl,
+                  color: Colors.black12,
+                  colorBlendMode: BlendMode.hardLight,
                   fit: BoxFit.cover,
                 ),
               ),
