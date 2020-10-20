@@ -13,7 +13,7 @@ class RecipeProvider with ChangeNotifier {
   }
 
   Future<Recipe> fetchAndSetRecipes() async {
-    var url = 'http://192.168.29.31:3300/user/recipes';
+    var url = 'https://bakeology-alpha-stage.herokuapp.com/user/recipes';
     try {
       final response = await http.get(url);
       // print(response);
@@ -51,7 +51,7 @@ class RecipeProvider with ChangeNotifier {
   }
 
   //function to fetch a product via its id
-  Recipe findById(String recipeId){
-     return _recipes.firstWhere((recipe) => recipe.id == recipeId);
+  Recipe findById(String recipeId) {
+    return _recipes.firstWhere((recipe) => recipe.id == recipeId);
   }
 }

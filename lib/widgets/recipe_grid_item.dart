@@ -50,7 +50,7 @@ class RecipeGridItem extends StatelessWidget {
                       margin: EdgeInsets.fromLTRB(3, 0, 3, 0),
                       height: 180,
                       child: Image.network(
-                        'http://192.168.29.31:3300/' + recipeImageUrl,
+                        'https://bakeology-alpha-stage.herokuapp.com/' + recipeImageUrl,
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -82,7 +82,7 @@ class RecipeGridItem extends StatelessWidget {
                                 radius: 15,
                                 backgroundColor: Colors.white70,
                                 backgroundImage: NetworkImage(
-                                    'http://192.168.29.31:3300/' +
+                                    'https://bakeology-alpha-stage.herokuapp.com/' +
                                         chefImageUrl),
                               ),
                             ),

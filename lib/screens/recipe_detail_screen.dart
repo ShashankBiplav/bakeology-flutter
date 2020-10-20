@@ -22,7 +22,7 @@ class RecipeDetailScreen extends StatelessWidget {
               background: Hero(
                 tag: loadedRecipe.id,
                 child: Image.network(
-                  'http://192.168.29.31:3300/'+loadedRecipe.imageUrl,
+                  'https://bakeology-alpha-stage.herokuapp.com/'+loadedRecipe.imageUrl,
                   color: Colors.black12,
                   colorBlendMode: BlendMode.hardLight,
                   fit: BoxFit.cover,

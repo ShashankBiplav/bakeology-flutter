@@ -13,16 +13,29 @@ class CategoryProvider with ChangeNotifier {
   }
 
   Future<Category> fetchAndSetCategories() async {
-    var url = 'http://192.168.29.31:3300/user/categories';
-    try{
+    var url = 'https://bakeology-alpha-stage.herokuapp.com/user/categories';
+    try {
       final response = await http.get(url);
       final extractedData = json.decode(response.body) as Map<String, dynamic>;
       if (extractedData == null) {
         return null;
       }
-      
-    }
-    catch(error){
+      final List<Category> loadedCategories = [];
+      extractedData["categories"].forEach((categoryData) {
+        loadedCategories.add(
+          Category(
+            id: categoryData["_id"],
+            title: categoryData["title"],
+            colorA: categoryData["colorA"],
+            colorB: categoryData["colorB"],
+            iconImageUrl: categoryData["iconImageUrl"],
+            recipes: categoryData["recipes"],
+          ),
+        );
+      });
+      _categories = loadedCategories;
+      notifyListeners();
+    } catch (error) {
       print(error);
       throw error;
     }
