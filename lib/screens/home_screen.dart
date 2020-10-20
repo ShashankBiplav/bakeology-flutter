@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import '../widgets/recipes_grid.dart';
 import '../widgets/category_list.dart';
 
+import '../screens/all_categories_screen.dart';
+
 class HomeScreen extends StatelessWidget {
   static const routeName = '/home-screen';
   @override
@@ -39,6 +41,7 @@ class HomeScreen extends StatelessWidget {
                   GestureDetector(
                     onTap: () {
                       print('see all tapped'); //TODO: Add navigation
+                      Navigator.of(context).pushNamed(AllCategoriesScreen.routeName);
                     },
                     child: Padding(
                       padding: const EdgeInsets.only(right: 10),

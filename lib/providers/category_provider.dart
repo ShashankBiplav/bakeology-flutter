@@ -40,4 +40,9 @@ class CategoryProvider with ChangeNotifier {
       throw error;
     }
   }
+  //function to fetch a category via its id
+  Category findById(String categoryId) {
+    return _categories.firstWhere((category) => category.id == categoryId);
+  }
 }
+
