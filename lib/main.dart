@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
           fontFamily: 'Poppins',
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: HomeScreen(),
+        home: AuthenticationScreen(),
         routes: {
           HomeScreen.routeName: (ctx) => HomeScreen(),
           RecipeDetailScreen.routeName: (ctx) => RecipeDetailScreen(),

@@ -11,12 +11,14 @@ class HomeScreen extends StatelessWidget {
   static const routeName = '/home-screen';
   @override
   Widget build(BuildContext context) {
-    var isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
+    bool isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.transparent,
+          centerTitle: true,
+          iconTheme: IconThemeData(color: Colors.black),
           title: Text(
             'Bakeology',
             style: TextStyle(

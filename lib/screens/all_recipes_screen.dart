@@ -15,6 +15,14 @@ class AllRecipesScreen extends StatelessWidget {
       appBar: AppBar(
          elevation: 0,
           backgroundColor: Colors.transparent,
+          centerTitle: true,
+          iconTheme: IconThemeData(color: Colors.black),
+          title: Text(
+            'All Recipes',
+            style: TextStyle(
+                color: Colors.black, fontWeight: FontWeight.w500, fontSize: 22),
+            textAlign: TextAlign.center,
+          ),
       ),
       body: GridView.builder( padding: const EdgeInsets.fromLTRB(10, 0, 10, 5),
       itemCount: fetchedRecipes.length,
