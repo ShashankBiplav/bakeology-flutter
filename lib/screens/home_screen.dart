@@ -1,9 +1,11 @@
+import 'package:bakeology/screens/all_recipes_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/recipes_grid.dart';
 import '../widgets/category_list.dart';
 
 import '../screens/all_categories_screen.dart';
+import '../screens/authentication_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   static const routeName = '/home-screen';
@@ -40,7 +42,6 @@ class HomeScreen extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      print('see all tapped'); //TODO: Add navigation
                       Navigator.of(context).pushNamed(AllCategoriesScreen.routeName);
                     },
                     child: Padding(
@@ -72,7 +73,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      print('see all tapped');//TODO: Add navigation
+                      Navigator.of(context).pushNamed(AllRecipesScreen.routeName);
                     },
                     child: Padding(
                       padding: const EdgeInsets.only(right: 10),

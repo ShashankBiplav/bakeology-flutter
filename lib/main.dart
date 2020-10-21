@@ -9,6 +9,7 @@ import './screens/chef_detail_screen.dart';
 import './screens/categorized_recipes_screen.dart';
 import './screens/all_categories_screen.dart';
 import './screens/authentication_screen.dart';
+import './screens/all_recipes_screen.dart';
 
 import './providers/recipe_provider.dart';
 import './providers/category_provider.dart';
@@ -49,6 +50,7 @@ class MyApp extends StatelessWidget {
           AllCategoriesScreen.routeName: (ctx) => AllCategoriesScreen(),
           FavouritesScreen.routeName: (ctx) => FavouritesScreen(),
           AuthenticationScreen.routeName: (ctx) => AuthenticationScreen(),
+          AllRecipesScreen.routeName: (ctx) => AllRecipesScreen(),
         },
       ),
     );

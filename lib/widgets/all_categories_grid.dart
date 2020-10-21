@@ -13,10 +13,10 @@ class AllCategoriesGrid extends StatelessWidget {
     return GridView.builder(
       padding: const EdgeInsets.fromLTRB(10, 0, 10, 5),
       itemCount: loadedCategories.length,
-      itemBuilder: (ctx, i)=> CategoryListItem(),
+      itemBuilder: (ctx, i) => CategoryListItem(),
       gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
         maxCrossAxisExtent: 200,
-        childAspectRatio: 1/1,
+        childAspectRatio: 1 / 1,
         crossAxisSpacing: 10,
         mainAxisSpacing: 10,
       ),
