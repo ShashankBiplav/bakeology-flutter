@@ -21,12 +21,15 @@ class _CategoryListState extends State<CategoryList> {
     final recipeData = Provider.of<CategoryProvider>(context);
     final fetchedCategories = recipeData.categories;
     return Container(
-      height: 200,
+      // height: 200,
       // width: MediaQuery.of(context).size.width,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: 10,
-        itemBuilder: (context, index) => CategoryListItem(),
+        itemBuilder: (context, index) => Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+          child: CategoryListItem(),
+        ),
       ),
     );
   }
