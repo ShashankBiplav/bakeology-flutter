@@ -9,7 +9,7 @@ class AuthenticationProvider with ChangeNotifier {
   String _userId;
 
   Future<void> signup({String name, String email, String password}) async {
-    var url = 'https://bakeology-alpha-stage.herokuapp.com/auth/user/signup';
+    const url = 'https://bakeology-alpha-stage.herokuapp.com/auth/user/signup';
     try {
       final response = await http.post(
         url, 
@@ -18,6 +18,25 @@ class AuthenticationProvider with ChangeNotifier {
     },
         body: jsonEncode(<String, String>{
           'name': name,
+          'email': email,
+          'password': password
+        }),
+      );
+      print(jsonDecode(response.body));
+    } catch (error) {
+      print(error);
+      throw error;
+    }
+  }
+  Future<void> login({String email, String password}) async {
+    const url = 'https://bakeology-alpha-stage.herokuapp.com/auth/user/login';
+    try {
+      final response = await http.post(
+        url, 
+        headers: <String, String>{
+      'Content-Type': 'application/json',
+    },
+        body: jsonEncode(<String, String>{
           'email': email,
           'password': password
         }),

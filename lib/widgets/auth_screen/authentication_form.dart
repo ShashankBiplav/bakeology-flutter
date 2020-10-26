@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../../providers/authentication_provider.dart';
 
 import '../../helpers/email_validation_helper.dart';
+import '../../screens/home_screen.dart';
 
 enum AuthenticationMode {
   SIGNUP,
@@ -48,6 +49,10 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
     });
     if (_authenticationMode == AuthenticationMode.LOGIN) {
       //Initiate User Login
+      await Provider.of<AuthenticationProvider>(context, listen: false).login(
+        email: _authData['email'],
+        password: _authData['password'],
+      );
     } else {
       //Initiate User Signup
       await Provider.of<AuthenticationProvider>(context, listen: false).signup(
@@ -132,7 +137,7 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
                     ),
                   ),
                   validator: (value) {
-                    validateEmail(value); // helper function
+                    return validateEmail(value); // helper function
                   },
                   onSaved: (value) {
                     _authData['email'] = value;
@@ -222,27 +227,27 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
                             fontWeight: FontWeight.w600),
                       ),
                       SizedBox(width: widget.width * 0.04),
-                      GestureDetector(
-                        onTap: _submit,
-                        child: Neumorphic(
-                          style: NeumorphicStyle(
-                            shape: NeumorphicShape.convex,
-                            border: NeumorphicBorder(
-                              color: Color(0x33000000),
-                              width: 0.8,
-                            ),
-                            boxShape: NeumorphicBoxShape.roundRect(
-                                BorderRadius.circular(50)),
-                            depth: 10,
-                            lightSource: LightSource.topLeft,
-                            color: Colors.black45,
+                      NeumorphicButton(
+                        onPressed: () {
+                          _submit();
+                        },
+                        provideHapticFeedback: true,
+                        style: NeumorphicStyle(
+                          shape: NeumorphicShape.convex,
+                          border: NeumorphicBorder(
+                            color: Color(0x33000000),
+                            width: 0.8,
                           ),
-                          child: Container(
-                            padding: EdgeInsets.all(20),
-                            child: NeumorphicIcon(
-                              Icons.arrow_forward_ios_rounded,
-                              size: 30,
-                            ),
+                          boxShape: NeumorphicBoxShape.circle(),
+                          depth: 5,
+                          lightSource: LightSource.topLeft,
+                          color: Colors.black45,
+                        ),
+                        child: Container(
+                          padding: EdgeInsets.all(20),
+                          child: NeumorphicIcon(
+                            Icons.arrow_forward_ios_rounded,
+                            size: 30,
                           ),
                         ),
                       )
@@ -281,6 +286,31 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
               ),
             )
           ],
+        ),
+        SizedBox(
+          height: widget.height * 0.025,
+        ),
+        NeumorphicButton(
+          provideHapticFeedback: true,
+          style: NeumorphicStyle(
+            shape: NeumorphicShape.convex,
+            depth: 0.5,
+            lightSource: LightSource.topLeft,
+          ),
+          onPressed: () {
+            Navigator.of(context).pushReplacementNamed(
+              HomeScreen.routeName,
+            );
+          },
+          child: Text(
+            'Skip',
+            style: TextStyle(
+                fontSize: 18,
+                color: Theme.of(context).accentColor.withOpacity(0.2),
+                fontFamily: 'Poppins',
+                fontWeight: FontWeight.w500,
+                decoration: TextDecoration.underline),
+          ),
         ),
       ],
     );
