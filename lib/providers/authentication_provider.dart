@@ -8,17 +8,18 @@ class AuthenticationProvider with ChangeNotifier {
   DateTime _expiryDate;
   String _userId;
 
-  Future<void> signup(String name, String email, String password) async {
-    var url = 'https://bakeology-alpha-stage.herokuapp.com/auth/signup';
+  Future<void> signup({String name, String email, String password}) async {
+    var url = 'https://bakeology-alpha-stage.herokuapp.com/auth/user/signup';
     try {
       final response = await http.post(
-        url,
-        body: jsonEncode(<String, String>{
+        url, 
+        body: jsonEncode({
           'name': name,
           'email': email,
           'password': password
         }),
       );
+      print(jsonDecode(response.body));
     } catch (error) {
       print(error);
       throw error;

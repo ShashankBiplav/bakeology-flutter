@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:provider/provider.dart';
+
+import '../../providers/authentication_provider.dart';
 
 import '../../helpers/email_validation_helper.dart';
 
@@ -30,8 +33,11 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
   bool _isLoading = false;
   final _passwordController = TextEditingController();
   // function for form submission and valiadtion
-  void _submit() {
+  Future<void> _submit() async {
     print('Submit called');
+    print(_authData['name']);
+    print(_authData['email']);
+    print(_authData['password']);
     if (!_formKey.currentState.validate()) {
       //Invalid
       return;
@@ -44,6 +50,11 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
       //Initiate User Login
     } else {
       //Initiate User Signup
+      await Provider.of<AuthenticationProvider>(context, listen: false).signup(
+        name: _authData['name'],
+        email: _authData['email'],
+        password: _authData['password'],
+      );
     }
     setState(() {
       _isLoading = false;
@@ -74,15 +85,43 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
                   : 0,
               left: widget.width * 0.09,
               right: widget.width * 0.09),
-          child: Column(
-            children: <Widget>[
-              if (_authenticationMode == AuthenticationMode.SIGNUP)
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: <Widget>[
+                if (_authenticationMode == AuthenticationMode.SIGNUP)
+                  TextFormField(
+                    keyboardType: TextInputType.name,
+                    cursorColor: Theme.of(context).accentColor,
+                    enabled: _authenticationMode == AuthenticationMode.SIGNUP,
+                    decoration: InputDecoration(
+                      labelText: 'NAME',
+                      labelStyle: TextStyle(
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Theme.of(context).accentColor),
+                      ),
+                    ),
+                    validator: _authenticationMode == AuthenticationMode.SIGNUP
+                        ? (value) {
+                            if (value.isEmpty) {
+                              return 'Enter your name!';
+                            }
+                          }
+                        : null,
+                    onSaved: (value) {
+                      _authData['name'] = value;
+                    },
+                  ),
+                SizedBox(height: widget.height * 0.025),
                 TextFormField(
-                  keyboardType: TextInputType.name,
+                  keyboardType: TextInputType.emailAddress,
                   cursorColor: Theme.of(context).accentColor,
-                  enabled: _authenticationMode == AuthenticationMode.SIGNUP,
                   decoration: InputDecoration(
-                    labelText: 'NAME',
+                    labelText: 'EMAIL',
                     labelStyle: TextStyle(
                         fontFamily: 'Poppins',
                         fontWeight: FontWeight.bold,
@@ -92,70 +131,18 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
                           BorderSide(color: Theme.of(context).accentColor),
                     ),
                   ),
-                  validator: _authenticationMode == AuthenticationMode.SIGNUP
-                      ? (value) {
-                          if (value.isEmpty) {
-                            return 'Enter your name!';
-                          }
-                        }
-                      : null,
+                  validator: (value) {
+                    validateEmail(value); // helper function
+                  },
                   onSaved: (value) {
-                    _authData['name'] = value;
+                    _authData['email'] = value;
                   },
                 ),
-              SizedBox(height: widget.height * 0.025),
-              TextFormField(
-                keyboardType: TextInputType.emailAddress,
-                cursorColor: Theme.of(context).accentColor,
-                decoration: InputDecoration(
-                  labelText: 'EMAIL',
-                  labelStyle: TextStyle(
-                      fontFamily: 'Poppins',
-                      fontWeight: FontWeight.bold,
-                      color: Colors.grey),
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide:
-                        BorderSide(color: Theme.of(context).accentColor),
-                  ),
-                ),
-                validator: (value) {
-                  validateEmail(value); // helper function
-                },
-                onSaved: (value) {
-                  _authData['email'] = value;
-                },
-              ),
-              SizedBox(height: widget.height * 0.025),
-              TextFormField(
-                cursorColor: Theme.of(context).accentColor,
-                decoration: InputDecoration(
-                  labelText: 'PASSWORD',
-                  labelStyle: TextStyle(
-                      fontFamily: 'Poppins',
-                      fontWeight: FontWeight.bold,
-                      color: Colors.grey),
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide:
-                        BorderSide(color: Theme.of(context).accentColor),
-                  ),
-                ),
-                obscureText: true,
-                validator: (value) {
-                  if (value.isEmpty || value.length < 5) {
-                    return 'Password too short!';
-                  }
-                },
-                onSaved: (value) {
-                  _authData['password'] = value;
-                },
-              ),
-              SizedBox(height: widget.height * 0.025),
-              if (_authenticationMode == AuthenticationMode.SIGNUP)
+                SizedBox(height: widget.height * 0.025),
                 TextFormField(
                   cursorColor: Theme.of(context).accentColor,
-                  enabled: _authenticationMode == AuthenticationMode.SIGNUP,
                   decoration: InputDecoration(
-                    labelText: 'CONFIRM PASSWORD',
+                    labelText: 'PASSWORD',
                     labelStyle: TextStyle(
                         fontFamily: 'Poppins',
                         fontWeight: FontWeight.bold,
@@ -166,77 +153,104 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
                     ),
                   ),
                   obscureText: true,
-                  controller: _passwordController,
-                  validator: _authenticationMode == AuthenticationMode.SIGNUP
-                      ? (value) {
-                          if (value != _passwordController.text) {
-                            return 'Passwords do not match!';
-                          }
-                        }
-                      : null,
+                  validator: (value) {
+                    if (value.isEmpty || value.length < 5) {
+                      return 'Password too short!';
+                    }
+                  },
+                  onSaved: (value) {
+                    _authData['password'] = value;
+                  },
                 ),
-              if (_authenticationMode == AuthenticationMode.SIGNUP)
-              SizedBox(height: widget.height * 0.01),
-              if (_authenticationMode == AuthenticationMode.LOGIN)
-                Container(
-                  alignment: Alignment(1.0, 0.0),
-                  padding: EdgeInsets.only(top: 15.0, left: 20.0),
-                  child: InkWell(
-                    child: Text(
-                      'Forgot Password',
-                      style: TextStyle(
-                          color: Theme.of(context).accentColor,
-                          fontWeight: FontWeight.w500,
+                SizedBox(height: widget.height * 0.025),
+                if (_authenticationMode == AuthenticationMode.SIGNUP)
+                  TextFormField(
+                    cursorColor: Theme.of(context).accentColor,
+                    enabled: _authenticationMode == AuthenticationMode.SIGNUP,
+                    decoration: InputDecoration(
+                      labelText: 'CONFIRM PASSWORD',
+                      labelStyle: TextStyle(
                           fontFamily: 'Poppins',
-                          decoration: TextDecoration.underline),
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Theme.of(context).accentColor),
+                      ),
+                    ),
+                    obscureText: true,
+                    controller: _passwordController,
+                    validator: _authenticationMode == AuthenticationMode.SIGNUP
+                        ? (value) {
+                            if (value != _passwordController.text) {
+                              return 'Passwords do not match!';
+                            }
+                          }
+                        : null,
+                  ),
+                if (_authenticationMode == AuthenticationMode.SIGNUP)
+                  SizedBox(height: widget.height * 0.01),
+                if (_authenticationMode == AuthenticationMode.LOGIN)
+                  Container(
+                    alignment: Alignment(1.0, 0.0),
+                    padding: EdgeInsets.only(top: 15.0, left: 20.0),
+                    child: InkWell(
+                      child: Text(
+                        'Forgot Password',
+                        style: TextStyle(
+                            color: Theme.of(context).accentColor,
+                            fontWeight: FontWeight.w500,
+                            fontFamily: 'Poppins',
+                            decoration: TextDecoration.underline),
+                      ),
                     ),
                   ),
-                ),
-              SizedBox(height: widget.height * 0.05),
-              if (_isLoading)
-                CircularProgressIndicator()
-              else
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      _authenticationMode == AuthenticationMode.LOGIN
-                          ? 'Login'
-                          : 'SignUp',
-                      style: TextStyle(
-                          fontFamily: 'Poppins',
-                          fontSize: 30.0,
-                          fontWeight: FontWeight.w600),
-                    ),
-                    SizedBox(width: widget.width * 0.04),
-                    GestureDetector(
-                      onTap: _submit,
-                      child: Neumorphic(
-                        style: NeumorphicStyle(
-                          shape: NeumorphicShape.convex,
-                          border: NeumorphicBorder(
-                            color: Color(0x33000000),
-                            width: 0.8,
-                          ),
-                          boxShape: NeumorphicBoxShape.roundRect(
-                              BorderRadius.circular(50)),
-                          depth: 10,
-                          lightSource: LightSource.topLeft,
-                          color: Colors.black45,
-                        ),
-                        child: Container(
-                          padding: EdgeInsets.all(20),
-                          child: NeumorphicIcon(
-                            Icons.arrow_forward_ios_rounded,
-                            size: 30,
-                          ),
-                        ),
+                SizedBox(height: widget.height * 0.05),
+                if (_isLoading)
+                  CircularProgressIndicator()
+                else
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        _authenticationMode == AuthenticationMode.LOGIN
+                            ? 'Login'
+                            : 'SignUp',
+                        style: TextStyle(
+                            fontFamily: 'Poppins',
+                            fontSize: 30.0,
+                            fontWeight: FontWeight.w600),
                       ),
-                    )
-                  ],
-                ),
-              SizedBox(height: widget.height * 0.025),
-            ],
+                      SizedBox(width: widget.width * 0.04),
+                      GestureDetector(
+                        onTap: _submit,
+                        child: Neumorphic(
+                          style: NeumorphicStyle(
+                            shape: NeumorphicShape.convex,
+                            border: NeumorphicBorder(
+                              color: Color(0x33000000),
+                              width: 0.8,
+                            ),
+                            boxShape: NeumorphicBoxShape.roundRect(
+                                BorderRadius.circular(50)),
+                            depth: 10,
+                            lightSource: LightSource.topLeft,
+                            color: Colors.black45,
+                          ),
+                          child: Container(
+                            padding: EdgeInsets.all(20),
+                            child: NeumorphicIcon(
+                              Icons.arrow_forward_ios_rounded,
+                              size: 30,
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                SizedBox(height: widget.height * 0.025),
+              ],
+            ),
           ),
         ),
         SizedBox(height: widget.height * 0.025),

@@ -13,6 +13,7 @@ import './screens/all_recipes_screen.dart';
 
 import './providers/recipe_provider.dart';
 import './providers/category_provider.dart';
+import './providers/authentication_provider.dart';
 
 void main() {
   runApp(MyApp());
@@ -24,6 +25,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider(
+          create: (ctx) => AuthenticationProvider(),
+        ),
         ChangeNotifierProvider(
           create: (ctx) => RecipeProvider(),
         ),
