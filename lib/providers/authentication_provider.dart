@@ -13,7 +13,10 @@ class AuthenticationProvider with ChangeNotifier {
     try {
       final response = await http.post(
         url, 
-        body: jsonEncode({
+        headers: <String, String>{
+      'Content-Type': 'application/json',
+    },
+        body: jsonEncode(<String, String>{
           'name': name,
           'email': email,
           'password': password
