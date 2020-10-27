@@ -77,6 +77,13 @@ class AuthenticationProvider with ChangeNotifier {
       }
       _token = responseData['token'];
       _userId = responseData['userId'];
+      _expiryDate = DateTime.now().add(
+        Duration(
+          hours: 23,
+          minutes: 55,
+        ),
+      );
+      notifyListeners();
     } catch (error) {
       print(error);
       print('catch block called');
