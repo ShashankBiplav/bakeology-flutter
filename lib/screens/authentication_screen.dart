@@ -11,7 +11,8 @@ class AuthenticationScreen extends StatelessWidget {
         MediaQuery.of(context).orientation == Orientation.portrait;
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-    return Scaffold(
+    return Scaffold( 
+      backgroundColor: Color.fromRGBO(227, 234, 237, 1),
       body: SingleChildScrollView(
         child: Column(
           // main column

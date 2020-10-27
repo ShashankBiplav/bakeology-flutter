@@ -22,7 +22,18 @@ class AuthenticationProvider with ChangeNotifier {
           'password': password
         }),
       );
-      print(jsonDecode(response.body));
+      
+      final statusCode = response.statusCode;
+      if(statusCode == 201){
+        print(jsonDecode(response.body));
+      print(statusCode);
+      }
+      else if(statusCode == 401){
+        print('Not Authorized');
+      }
+      else{
+        print('Server error');
+      }
     } catch (error) {
       print(error);
       throw error;
@@ -41,9 +52,20 @@ class AuthenticationProvider with ChangeNotifier {
           'password': password
         }),
       );
-      print(jsonDecode(response.body));
+       final statusCode = response.statusCode;
+      if(statusCode == 200){
+        print(jsonDecode(response.body));
+      print(statusCode);
+      }
+      else if(statusCode == 401){
+        print('Not Authorized');
+      }
+      else{
+        print('Server error');
+      }
     } catch (error) {
       print(error);
+      print('catch block called');
       throw error;
     }
   }

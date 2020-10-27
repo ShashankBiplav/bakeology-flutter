@@ -294,7 +294,7 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
           provideHapticFeedback: true,
           style: NeumorphicStyle(
             shape: NeumorphicShape.convex,
-            depth: 0.5,
+            depth: 3,
             lightSource: LightSource.topLeft,
           ),
           onPressed: () {
@@ -311,6 +311,9 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
                 fontWeight: FontWeight.w500,
                 decoration: TextDecoration.underline),
           ),
+        ),
+        SizedBox(
+          height: widget.height * 0.025,
         ),
       ],
     );
