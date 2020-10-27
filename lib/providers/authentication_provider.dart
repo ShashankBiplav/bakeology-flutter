@@ -14,6 +14,15 @@ class AuthenticationProvider with ChangeNotifier {
     return token != null; //check from token getter method if token is not null
   }
 
+  String get userId{
+    if (_expiryDate != null &&
+        _expiryDate.isAfter(DateTime.now()) &&
+        _token != null && _userId != null) {
+      return _userId;
+    }
+    return null;
+  }
+
   String get token {
     if (_expiryDate != null &&
         _expiryDate.isAfter(DateTime.now()) &&

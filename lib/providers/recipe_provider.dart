@@ -13,7 +13,7 @@ class RecipeProvider with ChangeNotifier {
   }
 
   Future<Recipe> fetchAndSetRecipes() async {
-    var url = 'https://bakeology-alpha-stage.herokuapp.com/user/recipes';
+    const url = 'https://bakeology-alpha-stage.herokuapp.com/user/recipes';
     try {
       final response = await http.get(url);
       // print(response);

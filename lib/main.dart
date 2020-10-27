@@ -14,6 +14,7 @@ import './screens/all_recipes_screen.dart';
 import './providers/recipe_provider.dart';
 import './providers/category_provider.dart';
 import './providers/authentication_provider.dart';
+import './providers/user_provider.dart';
 
 void main() {
   runApp(MyApp());
@@ -34,6 +35,13 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (ctx) => CategoryProvider(),
         ),
+        ChangeNotifierProxyProvider<AuthenticationProvider, UserProvider>(
+          create: null,
+          update: (ctx, authObject,_) => UserProvider(
+            authToken: authObject.token,
+            userId: authObject.userId,
+          ),
+        ),
       ],
       child: Consumer<AuthenticationProvider>(
         builder: (context, authData, _) => MaterialApp(
@@ -45,7 +53,8 @@ class MyApp extends StatelessWidget {
             fontFamily: 'Poppins',
             visualDensity: VisualDensity.adaptivePlatformDensity,
           ),
-          home: authData.isAuthenticated? HomeScreen(): AuthenticationScreen(),
+          home:
+              authData.isAuthenticated ? HomeScreen() : AuthenticationScreen(),
           routes: {
             HomeScreen.routeName: (ctx) => HomeScreen(),
             RecipeDetailScreen.routeName: (ctx) => RecipeDetailScreen(),
