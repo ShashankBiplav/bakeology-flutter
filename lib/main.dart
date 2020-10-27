@@ -35,27 +35,29 @@ class MyApp extends StatelessWidget {
           create: (ctx) => CategoryProvider(),
         ),
       ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Bakeology',
-        theme: ThemeData(
-          primarySwatch: Colors.pink,
-          accentColor: Colors.greenAccent[400],
-          fontFamily: 'Poppins',
-          visualDensity: VisualDensity.adaptivePlatformDensity,
+      child: Consumer<AuthenticationProvider>(
+        builder: (context, authData, _) => MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Bakeology',
+          theme: ThemeData(
+            primarySwatch: Colors.pink,
+            accentColor: Colors.greenAccent[400],
+            fontFamily: 'Poppins',
+            visualDensity: VisualDensity.adaptivePlatformDensity,
+          ),
+          home: authData.isAuthenticated? HomeScreen(): AuthenticationScreen(),
+          routes: {
+            HomeScreen.routeName: (ctx) => HomeScreen(),
+            RecipeDetailScreen.routeName: (ctx) => RecipeDetailScreen(),
+            ChefDetailScreen.routeName: (ctx) => ChefDetailScreen(),
+            CategorizedRecipesScreen.routeName: (ctx) =>
+                CategorizedRecipesScreen(),
+            AllCategoriesScreen.routeName: (ctx) => AllCategoriesScreen(),
+            FavouritesScreen.routeName: (ctx) => FavouritesScreen(),
+            AuthenticationScreen.routeName: (ctx) => AuthenticationScreen(),
+            AllRecipesScreen.routeName: (ctx) => AllRecipesScreen(),
+          },
         ),
-        home: AuthenticationScreen(),
-        routes: {
-          HomeScreen.routeName: (ctx) => HomeScreen(),
-          RecipeDetailScreen.routeName: (ctx) => RecipeDetailScreen(),
-          ChefDetailScreen.routeName: (ctx) => ChefDetailScreen(),
-          CategorizedRecipesScreen.routeName: (ctx) =>
-              CategorizedRecipesScreen(),
-          AllCategoriesScreen.routeName: (ctx) => AllCategoriesScreen(),
-          FavouritesScreen.routeName: (ctx) => FavouritesScreen(),
-          AuthenticationScreen.routeName: (ctx) => AuthenticationScreen(),
-          AllRecipesScreen.routeName: (ctx) => AllRecipesScreen(),
-        },
       ),
     );
   }

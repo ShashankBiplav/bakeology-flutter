@@ -92,13 +92,18 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
           password: _authData['password'],
         );
       }
+      setState(() { //after successful signup change to login state
+        _authenticationMode = AuthenticationMode.LOGIN;
+      });
     } on HttpException catch (error) {
       var errorMessage = 'Authentication Failed! Please try again later.';
       if (error.toString().contains('email doesn\'t exist')) {
         errorMessage = error.toString();
       } else if (error.toString().contains('Wrong Password')) {
         errorMessage = 'Email or Password is incorrect!';
-      } else if(error.toString().contains('User with this email already exists')){
+      } else if (error
+          .toString()
+          .contains('User with this email already exists')) {
         errorMessage = error.toString();
       }
       _showErrorDialog(errorMessage);

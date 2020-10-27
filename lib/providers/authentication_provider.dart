@@ -10,6 +10,19 @@ class AuthenticationProvider with ChangeNotifier {
   DateTime _expiryDate;
   String _userId;
 
+  bool get isAuthenticated {
+    return token != null; //check from token getter method if token is not null
+  }
+
+  String get token {
+    if (_expiryDate != null &&
+        _expiryDate.isAfter(DateTime.now()) &&
+        _token != null) {
+      return _token;
+    }
+    return null;
+  }
+
   Future<void> signup({String name, String email, String password}) async {
     const url = 'https://bakeology-alpha-stage.herokuapp.com/auth/user/signup';
     try {
@@ -62,6 +75,8 @@ class AuthenticationProvider with ChangeNotifier {
         print(responseData);
         throw HttpException(responseData['message']);
       }
+      _token = responseData['token'];
+      _userId = responseData['userId'];
     } catch (error) {
       print(error);
       print('catch block called');
