@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:provider/provider.dart';
@@ -5,6 +7,7 @@ import 'package:provider/provider.dart';
 import '../../providers/authentication_provider.dart';
 
 import '../../helpers/email_validation_helper.dart';
+import '../../models/http_exception.dart';
 import '../../screens/home_screen.dart';
 
 enum AuthenticationMode {
@@ -33,6 +36,32 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
   };
   bool _isLoading = false;
   final _passwordController = TextEditingController();
+
+  void _showErrorDialog(String message) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Authentication Error'),
+        content: Text(message),
+        actions: [
+          NeumorphicButton(
+            child: Text('OK'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            style: NeumorphicStyle(
+              color: Colors.grey.withOpacity(0.5),
+              shape: NeumorphicShape.convex,
+              depth: 3,
+              lightSource: LightSource.topLeft,
+            ),
+            provideHapticFeedback: true,
+          ),
+        ],
+      ),
+    );
+  }
+
   // function for form submission and valiadtion
   Future<void> _submit() async {
     print('Submit called');
@@ -47,19 +76,35 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
     setState(() {
       _isLoading = true;
     });
-    if (_authenticationMode == AuthenticationMode.LOGIN) {
-      //Initiate User Login
-      await Provider.of<AuthenticationProvider>(context, listen: false).login(
-        email: _authData['email'],
-        password: _authData['password'],
-      );
-    } else {
-      //Initiate User Signup
-      await Provider.of<AuthenticationProvider>(context, listen: false).signup(
-        name: _authData['name'],
-        email: _authData['email'],
-        password: _authData['password'],
-      );
+    try {
+      if (_authenticationMode == AuthenticationMode.LOGIN) {
+        //Initiate User Login
+        await Provider.of<AuthenticationProvider>(context, listen: false).login(
+          email: _authData['email'],
+          password: _authData['password'],
+        );
+      } else {
+        //Initiate User Signup
+        await Provider.of<AuthenticationProvider>(context, listen: false)
+            .signup(
+          name: _authData['name'],
+          email: _authData['email'],
+          password: _authData['password'],
+        );
+      }
+    } on HttpException catch (error) {
+      var errorMessage = 'Authentication Failed! Please try again later.';
+      if (error.toString().contains('email doesn\'t exist')) {
+        errorMessage = error.toString();
+      } else if (error.toString().contains('Wrong Password')) {
+        errorMessage = 'Email or Password is incorrect!';
+      } else if(error.toString().contains('User with this email already exists')){
+        errorMessage = error.toString();
+      }
+      _showErrorDialog(errorMessage);
+    } catch (error) {
+      const errorMessage = 'Authentication Failed! Please try again later.';
+      _showErrorDialog(errorMessage);
     }
     setState(() {
       _isLoading = false;
@@ -306,7 +351,7 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
             'Skip',
             style: TextStyle(
                 fontSize: 18,
-                color: Theme.of(context).accentColor.withOpacity(0.2),
+                color: Theme.of(context).accentColor.withOpacity(0.3),
                 fontFamily: 'Poppins',
                 fontWeight: FontWeight.w500,
                 decoration: TextDecoration.underline),
