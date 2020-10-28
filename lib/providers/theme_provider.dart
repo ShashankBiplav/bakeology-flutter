@@ -4,7 +4,7 @@ import '../helpers/theme.dart';
 
 enum ThemeType { Light, Dark }
 
-class ThemeModel extends ChangeNotifier {
+class ThemeModel with ChangeNotifier {
   ThemeData currentTheme = darkTheme;
   ThemeType _themeType = ThemeType.Dark;
 
