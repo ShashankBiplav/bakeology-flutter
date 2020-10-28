@@ -54,8 +54,16 @@ class MyApp extends StatelessWidget {
             fontFamily: 'Poppins',
             visualDensity: VisualDensity.adaptivePlatformDensity,
           ),
-          home:
-              authData.isAuthenticated ? HomeScreen() : AuthenticationScreen(),
+          home: authData.isAuthenticated
+              ? HomeScreen()
+              : FutureBuilder(
+                  future: authData.tryAutoLogin(),
+                  builder: (ctx, authResultSnapshot) =>
+                      authResultSnapshot.connectionState ==
+                              ConnectionState.waiting
+                          ? SplashScreen()
+                          : AuthenticationScreen(),
+                ),
           routes: {
             HomeScreen.routeName: (ctx) => HomeScreen(),
             RecipeDetailScreen.routeName: (ctx) => RecipeDetailScreen(),
