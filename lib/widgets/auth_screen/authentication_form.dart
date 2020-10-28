@@ -9,6 +9,7 @@ import '../../providers/authentication_provider.dart';
 import '../../helpers/email_validation_helper.dart';
 import '../../models/http_exception.dart';
 import '../../screens/home_screen.dart';
+import '../../screens/forgot_password_screen.dart';
 
 enum AuthenticationMode {
   SIGNUP,
@@ -250,6 +251,9 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
                     alignment: Alignment(1.0, 0.0),
                     padding: EdgeInsets.only(top: 15.0, left: 20.0),
                     child: InkWell(
+                      onTap: (){
+                        Navigator.of(context).pushNamed(ForgotPasswordScreen.routeName);
+                      },
                       child: Text(
                         'Forgot Password',
                         style: TextStyle(
