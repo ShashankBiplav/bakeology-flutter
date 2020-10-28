@@ -6,6 +6,7 @@ import '../widgets/category_list.dart';
 
 import '../screens/all_categories_screen.dart';
 import '../screens/authentication_screen.dart';
+import '../widgets/navigation_drawer.dart';
 
 class HomeScreen extends StatelessWidget {
   static const routeName = '/home-screen';
@@ -97,6 +98,7 @@ class HomeScreen extends StatelessWidget {
             Expanded(flex: isPortrait ? 3 : 1, child: RecipesGrid()),
           ],
         ),
+        drawer: NavigationDrawer(),
       ),
     );
   }

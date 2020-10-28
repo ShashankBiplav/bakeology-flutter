@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../widgets/all_categories_grid.dart';
+import '../widgets/navigation_drawer.dart';
 
 class AllCategoriesScreen extends StatelessWidget {
   static const routeName = '/all-categories-screen';
@@ -20,6 +21,7 @@ class AllCategoriesScreen extends StatelessWidget {
           ),
         ),
         body: AllCategoriesGrid(),
+        drawer: NavigationDrawer(),
     );
   }
 }

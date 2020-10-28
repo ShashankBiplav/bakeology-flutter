@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../providers/recipe_provider.dart';
 
 import '../widgets/recipe_grid_item.dart';
+import '../widgets/navigation_drawer.dart';
 
 class AllRecipesScreen extends StatelessWidget {
   static const routeName = '/all-recipes-screen';
@@ -13,35 +14,37 @@ class AllRecipesScreen extends StatelessWidget {
     final fetchedRecipes = recipeData.recipes;
     return Scaffold(
       appBar: AppBar(
-         elevation: 0,
-          backgroundColor: Colors.transparent,
-          centerTitle: true,
-          iconTheme: IconThemeData(color: Colors.black),
-          title: Text(
-            'All Recipes',
-            style: TextStyle(
-                color: Colors.black, fontWeight: FontWeight.w500, fontSize: 22),
-            textAlign: TextAlign.center,
-          ),
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        centerTitle: true,
+        iconTheme: IconThemeData(color: Colors.black),
+        title: Text(
+          'All Recipes',
+          style: TextStyle(
+              color: Colors.black, fontWeight: FontWeight.w500, fontSize: 22),
+          textAlign: TextAlign.center,
+        ),
       ),
-      body: GridView.builder( padding: const EdgeInsets.fromLTRB(10, 0, 10, 5),
-      itemCount: fetchedRecipes.length,
-      itemBuilder: (ctx, i) => RecipeGridItem(
-        recipeId: fetchedRecipes[i].id,
-        recipeTitle: fetchedRecipes[i].title,
-        recipeImageUrl: fetchedRecipes[i].imageUrl,
-        chefName: fetchedRecipes[i].chefName,
-        chefImageUrl: fetchedRecipes[i].chefImageUrl,
-        isVegetarian: fetchedRecipes[i].isVegetarian,
-        duration: fetchedRecipes[i].duration,
+      body: GridView.builder(
+        padding: const EdgeInsets.fromLTRB(10, 0, 10, 5),
+        itemCount: fetchedRecipes.length,
+        itemBuilder: (ctx, i) => RecipeGridItem(
+          recipeId: fetchedRecipes[i].id,
+          recipeTitle: fetchedRecipes[i].title,
+          recipeImageUrl: fetchedRecipes[i].imageUrl,
+          chefName: fetchedRecipes[i].chefName,
+          chefImageUrl: fetchedRecipes[i].chefImageUrl,
+          isVegetarian: fetchedRecipes[i].isVegetarian,
+          duration: fetchedRecipes[i].duration,
+        ),
+        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+          maxCrossAxisExtent: 200,
+          childAspectRatio: 9 / 13,
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 10,
+        ),
       ),
-      gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-        maxCrossAxisExtent: 200,
-        childAspectRatio: 9 / 13,
-        crossAxisSpacing: 10,
-        mainAxisSpacing: 10,
-      ),
-      ),
+      drawer: NavigationDrawer(),
     );
   }
 }
