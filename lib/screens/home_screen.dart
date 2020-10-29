@@ -1,10 +1,11 @@
-import 'package:bakeology/screens/all_recipes_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 import '../widgets/recipes_grid.dart';
 import '../widgets/category_list.dart';
 
 import '../screens/all_categories_screen.dart';
+import '../screens/all_recipes_screen.dart';
 import '../screens/authentication_screen.dart';
 import '../widgets/navigation_drawer.dart';
 
@@ -22,10 +23,13 @@ class HomeScreen extends StatelessWidget {
           backgroundColor: Colors.transparent,
           centerTitle: true,
           iconTheme: IconThemeData(color: Colors.black),
-          title: Text(
+          title: NeumorphicText(
             'Bakeology',
-            style: TextStyle(
-                color: Colors.black, fontWeight: FontWeight.w700, fontSize: 22),
+            style: NeumorphicStyle(
+              depth: 4,
+              intensity: 1,
+                color: Colors.grey[850], ),
+                textStyle: NeumorphicTextStyle(fontWeight: FontWeight.w500, fontSize: 20, fontFamily: 'Poppins'),
             textAlign: TextAlign.center,
           ),
         ),
@@ -67,7 +71,10 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
             ),
-            Expanded(flex: 1, child: CategoryList()),
+            Expanded(
+              flex: 1,
+              child: CategoryList(),
+            ),
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 10, 0, 10),
               child: Row(
@@ -102,7 +109,10 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
             ),
-            Expanded(flex: isPortrait ? 3 : 1, child: RecipesGrid()),
+            Expanded(
+              flex: isPortrait ? 3 : 1,
+              child: RecipesGrid(),
+            ),
           ],
         ),
         drawer: NavigationDrawer(),

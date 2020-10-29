@@ -22,8 +22,7 @@ class StartingText extends StatelessWidget {
             textStyle: NeumorphicTextStyle(
                 fontSize: 70,
                 fontFamily: 'Poppins',
-                fontWeight: FontWeight.bold //customize size here
-                // AND others usual text style properties (fontFamily, fontWeight, ...)
+                fontWeight: FontWeight.bold 
                 ),
           ),
         ),

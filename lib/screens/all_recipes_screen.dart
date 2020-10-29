@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 import '../providers/recipe_provider.dart';
 
@@ -19,10 +20,15 @@ class AllRecipesScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         centerTitle: true,
         iconTheme: IconThemeData(color: Colors.black),
-        title: Text(
+        title: NeumorphicText(
           'All Recipes',
-          style: TextStyle(
-              color: Colors.black, fontWeight: FontWeight.w500, fontSize: 22),
+          style: NeumorphicStyle(
+            depth: 4,
+            intensity: 1,
+            color: Colors.grey[850],
+          ),
+          textStyle: NeumorphicTextStyle(
+              fontWeight: FontWeight.w500, fontSize: 18, fontFamily: 'Poppins'),
           textAlign: TextAlign.center,
         ),
       ),

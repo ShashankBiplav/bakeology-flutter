@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 import '../widgets/all_categories_grid.dart';
 import '../widgets/navigation_drawer.dart';
@@ -14,15 +15,20 @@ class AllCategoriesScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         centerTitle: true,
         iconTheme: IconThemeData(color: Colors.black),
-        title: Text(
+        title: NeumorphicText(
           'All Categories',
-          style: TextStyle(
-              color: Colors.black, fontWeight: FontWeight.w500, fontSize: 22),
+          style: NeumorphicStyle(
+            depth: 4,
+            intensity: 1,
+            color: Colors.grey[850],
+          ),
+          textStyle: NeumorphicTextStyle(
+              fontWeight: FontWeight.w500, fontSize: 18, fontFamily: 'Poppins'),
           textAlign: TextAlign.center,
         ),
       ),
       body: Container(
-        padding: EdgeInsets.only(top:10),
+        padding: EdgeInsets.only(top: 10),
         child: AllCategoriesGrid(),
       ),
       drawer: NavigationDrawer(),
