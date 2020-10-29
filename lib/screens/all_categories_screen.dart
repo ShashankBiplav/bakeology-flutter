@@ -8,20 +8,24 @@ class AllCategoriesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromRGBO(227, 234, 237, 1),
       appBar: AppBar(
-          elevation: 0,
-          backgroundColor: Colors.transparent,
-          centerTitle: true,
-          iconTheme: IconThemeData(color: Colors.black),
-          title: Text(
-            'All Categories',
-            style: TextStyle(
-                color: Colors.black, fontWeight: FontWeight.w500, fontSize: 22),
-            textAlign: TextAlign.center,
-          ),
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        centerTitle: true,
+        iconTheme: IconThemeData(color: Colors.black),
+        title: Text(
+          'All Categories',
+          style: TextStyle(
+              color: Colors.black, fontWeight: FontWeight.w500, fontSize: 22),
+          textAlign: TextAlign.center,
         ),
-        body: AllCategoriesGrid(),
-        drawer: NavigationDrawer(),
+      ),
+      body: Container(
+        padding: EdgeInsets.only(top:10),
+        child: AllCategoriesGrid(),
+      ),
+      drawer: NavigationDrawer(),
     );
   }
 }

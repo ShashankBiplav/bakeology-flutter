@@ -30,6 +30,7 @@ dependencies:
   intl: ^0.16.1
   provider: ^4.3.2+2
   shared_preferences: ^0.5.12+2
+  stacked_themes: ^0.2.2+1
   url_launcher: ^5.7.2
 
 dev_dependencies:

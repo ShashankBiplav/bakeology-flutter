@@ -13,6 +13,7 @@ class AllRecipesScreen extends StatelessWidget {
     final recipeData = Provider.of<RecipeProvider>(context);
     final fetchedRecipes = recipeData.recipes;
     return Scaffold(
+      backgroundColor: Color.fromRGBO(227, 234, 237, 1),
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
@@ -26,7 +27,7 @@ class AllRecipesScreen extends StatelessWidget {
         ),
       ),
       body: GridView.builder(
-        padding: const EdgeInsets.fromLTRB(10, 0, 10, 5),
+        padding: const EdgeInsets.fromLTRB(10, 10, 10, 5),
         itemCount: fetchedRecipes.length,
         itemBuilder: (ctx, i) => RecipeGridItem(
           recipeId: fetchedRecipes[i].id,

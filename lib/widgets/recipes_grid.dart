@@ -22,7 +22,7 @@ class _RecipesGridState extends State<RecipesGrid> {
     final recipeData = Provider.of<RecipeProvider>(context);
     final fetchedRecipes = recipeData.recipes;
     return GridView.builder(
-      padding: const EdgeInsets.fromLTRB(10, 0, 10, 5),
+      padding: const EdgeInsets.fromLTRB(10, 10, 10, 5),
       itemCount: fetchedRecipes.length,
       itemBuilder: (ctx, i) => RecipeGridItem(
         recipeId: fetchedRecipes[i].id,

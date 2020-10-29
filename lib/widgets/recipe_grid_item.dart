@@ -41,7 +41,7 @@ class RecipeGridItem extends StatelessWidget {
           },
           child: Container(
             decoration: BoxDecoration(
-              color: Colors.blue[100],
+              // color: Colors.blue[100],
             ),
             child: FractionallySizedBox(
               heightFactor: 0.92,

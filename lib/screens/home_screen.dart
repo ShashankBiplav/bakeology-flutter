@@ -12,9 +12,11 @@ class HomeScreen extends StatelessWidget {
   static const routeName = '/home-screen';
   @override
   Widget build(BuildContext context) {
-    bool isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
+    bool isPortrait =
+        MediaQuery.of(context).orientation == Orientation.portrait;
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Color.fromRGBO(227, 234, 237, 1),
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.transparent,
@@ -45,7 +47,8 @@ class HomeScreen extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.of(context).pushNamed(AllCategoriesScreen.routeName);
+                      Navigator.of(context)
+                          .pushNamed(AllCategoriesScreen.routeName);
                     },
                     child: Padding(
                       padding: const EdgeInsets.only(right: 10),
@@ -76,7 +79,8 @@ class HomeScreen extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.of(context).pushNamed(AllRecipesScreen.routeName);
+                      Navigator.of(context)
+                          .pushNamed(AllRecipesScreen.routeName);
                     },
                     child: Padding(
                       padding: const EdgeInsets.only(right: 10),
@@ -87,7 +91,10 @@ class HomeScreen extends StatelessWidget {
                             style: TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.w400),
                           ),
-                          Icon(Icons.arrow_forward, size: 18,),
+                          Icon(
+                            Icons.arrow_forward,
+                            size: 18,
+                          ),
                         ],
                       ),
                     ),
