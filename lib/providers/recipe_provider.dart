@@ -16,13 +16,11 @@ class RecipeProvider with ChangeNotifier {
     const url = 'https://bakeology-alpha-stage.herokuapp.com/user/recipes';
     try {
       final response = await http.get(url);
-      // print(response);
       final extractedData = json.decode(response.body) as Map<String, dynamic>;
       if (extractedData == null) {
-        return null; //TODO: check if we can simply return without 'null'
+        return null;
       }
       final List<Recipe> loadedRecipes = [];
-      // print(extractedData["recipes"]);
       extractedData["recipes"].forEach((recipeData) {
         loadedRecipes.add(
           Recipe(
@@ -41,7 +39,6 @@ class RecipeProvider with ChangeNotifier {
               ingredients: recipeData["ingredients"]),
         );
       });
-      // print(extractedData["recipes"]);
       _recipes = loadedRecipes;
       notifyListeners();
     } catch (error) {
