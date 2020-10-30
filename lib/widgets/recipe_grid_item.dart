@@ -21,6 +21,10 @@ class RecipeGridItem extends StatelessWidget {
       @required this.duration});
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
+    bool isPortrait =
+        MediaQuery.of(context).orientation == Orientation.portrait;
     return NeumorphicButton(
       padding: EdgeInsets.all(0),
       provideHapticFeedback: true,
@@ -40,9 +44,7 @@ class RecipeGridItem extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(15),
         child: Container(
-          decoration: BoxDecoration(
-              // color: Colors.blue[100],
-              ),
+          decoration: BoxDecoration(),
           child: FractionallySizedBox(
             heightFactor: 0.92,
             widthFactor: 0.92,
@@ -57,7 +59,7 @@ class RecipeGridItem extends StatelessWidget {
                     tag: recipeId,
                     child: Container(
                       margin: EdgeInsets.fromLTRB(3, 0, 3, 0),
-                      height: 180,
+                      height: isPortrait ? height * 0.21 : height * 0.44,
                       child: Image.network(
                         'https://bakeology-alpha-stage.herokuapp.com/' +
                             recipeImageUrl,
@@ -66,7 +68,7 @@ class RecipeGridItem extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 9),
+                SizedBox(height: isPortrait ? height * 0.02 : height * 0.025),
                 Text(
                   recipeTitle,
                   style: TextStyle(
@@ -75,7 +77,7 @@ class RecipeGridItem extends StatelessWidget {
                     fontSize: 18,
                   ),
                 ),
-                SizedBox(height: 9),
+                SizedBox(height: isPortrait ? height * 0.01 : height * 0.025),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -97,7 +99,7 @@ class RecipeGridItem extends StatelessWidget {
                               ),
                             ),
                             SizedBox(
-                              width: 7,
+                              width: isPortrait ? width * 0.01 : width * 0.008,
                             ),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -120,12 +122,16 @@ class RecipeGridItem extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            SizedBox(width: 9),
+                            SizedBox(
+                              width: isPortrait ? width * 0.01 : width * 0.008,
+                            ),
                           ],
                         ),
                       ),
                     ),
-                    SizedBox(width: 5),
+                    SizedBox(
+                      width: isPortrait ? width * 0.01 : width * 0.008,
+                    ),
                     Column(
                       children: [
                         Icon(

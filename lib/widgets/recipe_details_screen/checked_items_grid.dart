@@ -1,26 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
+import '../../models/checked_item.dart';
+
 class CheckedItemsGrid extends StatefulWidget {
-  final List<dynamic> items;
-  CheckedItemsGrid({@required this.items});
+  final List<CheckedItem> items;
+  final String heading;
+  CheckedItemsGrid({@required this.items, @required this.heading});
   @override
   _CheckedItemsGridState createState() => _CheckedItemsGridState();
 }
 
 class _CheckedItemsGridState extends State<CheckedItemsGrid> {
+  void onItemClicked(CheckedItem item) {
+    setState(() {
+      item.value = !item.value;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    var itemsMap =
-        widget.items.map((item) => {item: false});
-        print(itemsMap);
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         NeumorphicText(
-          'Ingredients',
-          style: NeumorphicStyle(depth: 4, intensity: 1, color: Colors.grey),
+          widget.heading,
+          style: NeumorphicStyle(depth: 3, intensity: 1, color: Colors.grey),
           textStyle: NeumorphicTextStyle(
               fontSize: 18, fontFamily: 'Poppins', fontWeight: FontWeight.w400),
         ),
@@ -28,17 +34,14 @@ class _CheckedItemsGridState extends State<CheckedItemsGrid> {
           height: 300,
           child: GridView.builder(
             itemCount: widget.items.length,
-            itemBuilder: (context, index) => CheckboxListTile(
-              title: Text('${widget.items[index]}'),
-              value: (itemsMap
-                  .elementAt(index)['${widget.items[index]}']),
-              onChanged: (value) {
-                print(value);
-                setState(() {
-                  itemsMap.elementAt(index)['${widget.items[index]}'] = value;
-                });
-              },
-            ),
+            itemBuilder: (ctx, index) => CheckboxListTile(
+                title: Text('${widget.items[index].title}'),
+                value: widget.items[index].value,
+                onChanged: (value) {
+                  setState(() {
+                    onItemClicked(widget.items[index]);
+                  });
+                }),
             gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
               maxCrossAxisExtent: MediaQuery.of(context).size.width / 2,
               childAspectRatio: 4,
@@ -50,6 +53,4 @@ class _CheckedItemsGridState extends State<CheckedItemsGrid> {
       ],
     );
   }
-
-  void _toggleCheckedStatus(bool isChecked) {}
 }

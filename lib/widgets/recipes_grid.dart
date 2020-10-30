@@ -11,9 +11,19 @@ class RecipesGrid extends StatefulWidget {
 }
 
 class _RecipesGridState extends State<RecipesGrid> {
+  bool _isLoading = false;
   @override
   void initState() {
-    Provider.of<RecipeProvider>(context, listen: false).fetchAndSetRecipes();
+    setState(() {
+      _isLoading = true;
+    });
+    Provider.of<RecipeProvider>(context, listen: false)
+        .fetchAndSetRecipes()
+        .then((_) {
+      setState(() {
+        _isLoading = false;
+      });
+    });
     super.initState();
   }
 
@@ -21,24 +31,28 @@ class _RecipesGridState extends State<RecipesGrid> {
   Widget build(BuildContext context) {
     final recipeData = Provider.of<RecipeProvider>(context);
     final fetchedRecipes = recipeData.recipes;
-    return GridView.builder(
-      padding: const EdgeInsets.fromLTRB(10, 10, 10, 5),
-      itemCount: fetchedRecipes.length,
-      itemBuilder: (ctx, i) => RecipeGridItem(
-        recipeId: fetchedRecipes[i].id,
-        recipeTitle: fetchedRecipes[i].title,
-        recipeImageUrl: fetchedRecipes[i].imageUrl,
-        chefName: fetchedRecipes[i].chefName,
-        chefImageUrl: fetchedRecipes[i].chefImageUrl,
-        isVegetarian: fetchedRecipes[i].isVegetarian,
-        duration: fetchedRecipes[i].duration,
-      ),
-      gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-        maxCrossAxisExtent: 200,
-        childAspectRatio: 9 / 13,
-        crossAxisSpacing: 10,
-        mainAxisSpacing: 10,
-      ),
-    );
+    return _isLoading
+        ? Center(
+            child: CircularProgressIndicator(),
+          )
+        : GridView.builder(
+            padding: const EdgeInsets.fromLTRB(10, 10, 10, 5),
+            itemCount: fetchedRecipes.length,
+            itemBuilder: (ctx, i) => RecipeGridItem(
+              recipeId: fetchedRecipes[i].id,
+              recipeTitle: fetchedRecipes[i].title,
+              recipeImageUrl: fetchedRecipes[i].imageUrl,
+              chefName: fetchedRecipes[i].chefName,
+              chefImageUrl: fetchedRecipes[i].chefImageUrl,
+              isVegetarian: fetchedRecipes[i].isVegetarian,
+              duration: fetchedRecipes[i].duration,
+            ),
+            gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+              maxCrossAxisExtent: 200,
+              childAspectRatio: 9 / 13,
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 10,
+            ),
+          );
   }
 }

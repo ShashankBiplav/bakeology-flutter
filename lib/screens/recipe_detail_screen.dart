@@ -6,6 +6,8 @@ import '../providers/recipe_provider.dart';
 
 import '../widgets/recipe_details_screen/checked_items_grid.dart';
 
+import '../models/checked_item.dart';
+
 class RecipeDetailScreen extends StatelessWidget {
   static const routeName = '/recipe-detail-screen';
   @override
@@ -38,7 +40,16 @@ class RecipeDetailScreen extends StatelessWidget {
             delegate: SliverChildListDelegate(
               [
                 SizedBox(height: 10),
-                CheckedItemsGrid(items: loadedRecipe.ingredients, ),
+                CheckedItemsGrid(
+                  heading: 'Ingredients',
+                  items: loadedRecipe.ingredients
+                      .map(
+                        (item) => CheckedItem(
+                          title: item.toString(),
+                        ),
+                      )
+                      .toList(),
+                ),
                 SizedBox(height: 10),
                 Text(
                   '${loadedRecipe.categories}',
