@@ -162,6 +162,7 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
                       ),
                     ),
                     validator: _authenticationMode == AuthenticationMode.SIGNUP
+                        // ignore: missing_return
                         ? (value) {
                             if (value.isEmpty) {
                               return 'Enter your name!';
@@ -209,6 +210,7 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
                     ),
                   ),
                   obscureText: true,
+                  // ignore: missing_return
                   validator: (value) {
                     if (value.isEmpty || value.length < 5) {
                       return 'Password too short!';
@@ -237,6 +239,7 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
                     obscureText: true,
                     controller: _passwordController,
                     validator: _authenticationMode == AuthenticationMode.SIGNUP
+                        // ignore: missing_return
                         ? (value) {
                             if (value != _passwordController.text) {
                               return 'Passwords do not match!';

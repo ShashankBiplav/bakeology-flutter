@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 
 import '../models/recipe.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +19,7 @@ class UserProvider with ChangeNotifier {
     return [..._favouriteRecipes];
   }
 
+  // ignore: missing_return
   Future<Recipe> fetchAndSetFavouriteRecipes() async {
     final url =
         'https://bakeology-alpha-stage.herokuapp.com/user/get-favourites/$userId';
@@ -63,6 +63,7 @@ class UserProvider with ChangeNotifier {
     }
   }
 
+  // ignore: todo
   //TODO: Check for optimistic updating here and below functions
   Future<void> markRecipeAsFavourite(String recipeId, Recipe recipe) async {
     //status code from server is 200, 404 and 500 also exists

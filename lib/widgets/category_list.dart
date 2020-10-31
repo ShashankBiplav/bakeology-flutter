@@ -18,11 +18,9 @@ class _CategoryListState extends State<CategoryList> {
   }
   @override
   Widget build(BuildContext context) {
-    final recipeData = Provider.of<CategoryProvider>(context);
-    final fetchedCategories = recipeData.categories;
+    // final recipeData = Provider.of<CategoryProvider>(context);
+    // final fetchedCategories = recipeData.categories;
     return Container(
-      // height: 200,
-      // width: MediaQuery.of(context).size.width,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: 10,

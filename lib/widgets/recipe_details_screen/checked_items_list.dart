@@ -3,15 +3,15 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 import '../../models/checked_item.dart';
 
-class CheckedItemsGrid extends StatefulWidget {
+class CheckedItemsList extends StatefulWidget {
   final List<CheckedItem> items;
   final String heading;
-  CheckedItemsGrid({@required this.items, @required this.heading});
+  CheckedItemsList({@required this.items, @required this.heading});
   @override
-  _CheckedItemsGridState createState() => _CheckedItemsGridState();
+  _CheckedItemsListState createState() => _CheckedItemsListState();
 }
 
-class _CheckedItemsGridState extends State<CheckedItemsGrid> {
+class _CheckedItemsListState extends State<CheckedItemsList> {
   void _onItemClicked(CheckedItem item) {
     setState(() {
       item.value = !item.value;
@@ -38,16 +38,17 @@ class _CheckedItemsGridState extends State<CheckedItemsGrid> {
                 fontWeight: FontWeight.w400),
           ),
           Container(
-            height: isPortrait ? height * 0.2 : height * 0.3,
-            child: GridView.builder(
+            height: isPortrait ? height * 0.4 : height * 0.6,
+            child: ListView.builder(
               itemCount: widget.items.length,
               itemBuilder: (ctx, index) => Padding(
-                padding: const EdgeInsets.only(left: 10, right: 10),
+                padding: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
                 child: Neumorphic(
                   child: Center(
                     child: CheckboxListTile(
+
                         controlAffinity: ListTileControlAffinity.leading,
-                        title: Text('${widget.items[index].title}'),
+                        title: Text('${widget.items[index].title}', maxLines: 3,),
                         value: widget.items[index].value,
                         onChanged: (value) {
                           setState(() {
@@ -56,14 +57,6 @@ class _CheckedItemsGridState extends State<CheckedItemsGrid> {
                         }),
                   ),
                 ),
-              ),
-              gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                maxCrossAxisExtent: isPortrait
-                    ? MediaQuery.of(context).size.width / 2
-                    : MediaQuery.of(context).size.width / 3,
-                childAspectRatio: 3.5,
-                crossAxisSpacing: 0,
-                mainAxisSpacing: 20,
               ),
             ),
           ),

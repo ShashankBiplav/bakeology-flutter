@@ -12,6 +12,7 @@ class CategoryProvider with ChangeNotifier {
     return [..._categories];
   }
 
+  // ignore: missing_return
   Future<Category> fetchAndSetCategories() async {
     var url = 'https://bakeology-alpha-stage.herokuapp.com/user/categories';
     try {

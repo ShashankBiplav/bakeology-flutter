@@ -7,7 +7,7 @@ import '../providers/authentication_provider.dart';
 import '../screens/all_categories_screen.dart';
 import '../screens/all_recipes_screen.dart';
 import '../screens/forgot_password_screen.dart';
-import '../screens/favourites_screen.dart';
+
 
 class NavigationDrawer extends StatelessWidget {
   @override

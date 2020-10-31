@@ -5,6 +5,7 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import '../providers/recipe_provider.dart';
 
 import '../widgets/recipe_details_screen/checked_items_grid.dart';
+import '../widgets/recipe_details_screen/checked_items_list.dart';
 
 import '../models/checked_item.dart';
 
@@ -56,23 +57,30 @@ class RecipeDetailScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 10),
                 Text(
-                  '${loadedRecipe.chef}',
+                  'Chef Name =>${loadedRecipe.chefName}',
                 ),
                 SizedBox(height: 10),
                 Text(
-                  '${loadedRecipe.imageUrl}',
+                  'recipe image   ${loadedRecipe.imageUrl}',
                 ),
                 SizedBox(height: 10),
                 Text(
-                  '${loadedRecipe.chefImageUrl}',
+                  'chef image${loadedRecipe.chefImageUrl}',
                 ),
                 SizedBox(height: 10),
                 Text(
-                  '${loadedRecipe.duration}',
+                  ' duration   ${loadedRecipe.duration} min',
                 ),
                 SizedBox(height: 10),
-                Text(
-                  '${loadedRecipe.ingredients}',
+                CheckedItemsList(
+                  heading: 'Steps',
+                  items: loadedRecipe.steps
+                      .map(
+                        (item) => CheckedItem(
+                          title: item.toString(),
+                        ),
+                      )
+                      .toList(),
                 ),
                 SizedBox(height: 1000),
                 Text(
