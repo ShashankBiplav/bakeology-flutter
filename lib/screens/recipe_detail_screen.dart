@@ -9,6 +9,7 @@ import '../widgets/recipe_details_screen/checked_items_grid.dart';
 import '../widgets/recipe_details_screen/checked_items_list.dart';
 import '../widgets/recipe_details_screen/heading.dart';
 import '../widgets/recipe_details_screen/display_avatar.dart';
+import '../widgets/recipe_details_screen/stateful_button.dart';
 
 import '../models/checked_item.dart';
 
@@ -84,29 +85,8 @@ class RecipeDetailScreen extends StatelessWidget {
                           SizedBox(
                             width: isPortrait ? width * 0.15 : width * 0.2,
                           ),
-                          NeumorphicButton(
-                            onPressed: () {
-                              Provider.of<ChefProvider>(context, listen: false)
-                                  .fetchAndSetChef(chefId: loadedRecipe.chef);
-                              Navigator.of(context).pushReplacementNamed(
-                                  ChefDetailScreen.routeName);
-                            },
-                            child: Container(
-                              child: Row(
-                                children: [
-                                  Text(
-                                    'View Info',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.w600),
-                                  ),
-                                  Icon(
-                                    Icons.arrow_forward_ios,
-                                    size: 15,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
+                          StatefulButton(chefId: loadedRecipe.chef),
+
                         ],
                       ),
                     ],
