@@ -1,15 +1,18 @@
+import 'package:bakeology/models/category.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 import '../providers/recipe_provider.dart';
 import '../providers/chef_provider.dart';
+import '../providers/category_provider.dart';
 
 import '../widgets/recipe_details_screen/checked_items_grid.dart';
 import '../widgets/recipe_details_screen/checked_items_list.dart';
 import '../widgets/recipe_details_screen/heading.dart';
 import '../widgets/recipe_details_screen/display_avatar.dart';
 import '../widgets/recipe_details_screen/stateful_button.dart';
+import '../widgets/category_list_item.dart';
 
 import '../models/checked_item.dart';
 
@@ -21,11 +24,27 @@ class RecipeDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final recipeId = ModalRoute.of(context).settings.arguments as String;
     final loadedRecipe =
-        Provider.of<RecipeProvider>(context, listen: false).findById(recipeId);
+        Provider.of<RecipeProvider>(context, listen: false).findById(recipeId); //load the recipe with its id
+    final allCategories =
+        Provider.of<CategoryProvider>(context, listen: false).categories; // all categories of the application
+
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     bool isPortrait =
         MediaQuery.of(context).orientation == Orientation.portrait;
+    final loadedRecipeCategories = loadedRecipe.categories; //all the categories that belong to this recipe
+    List<Category> recipeCategories= []; //empty array to create list of all categories that belong to this recipe
+    // loop to filter one array 
+    for (var i = 0; i < loadedRecipeCategories.length; i++) {
+      Category category = allCategories
+          .firstWhere((element) => element.id == loadedRecipeCategories[i]);
+      if (category != null) {
+        recipeCategories.add(category);
+      }
+      else{
+        return null;
+      }
+    }
     return Scaffold(
       backgroundColor: Color.fromRGBO(227, 234, 237, 1),
       body: CustomScrollView(
@@ -52,7 +71,7 @@ class RecipeDetailScreen extends StatelessWidget {
               [
                 SizedBox(height: 10),
                 Padding(
-                  padding: const EdgeInsets.only(left: 10, top: 10, right: 10),
+                  padding: const EdgeInsets.all(10),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -86,7 +105,6 @@ class RecipeDetailScreen extends StatelessWidget {
                             width: isPortrait ? width * 0.15 : width * 0.2,
                           ),
                           StatefulButton(chefId: loadedRecipe.chef),
-
                         ],
                       ),
                     ],
@@ -104,22 +122,40 @@ class RecipeDetailScreen extends StatelessWidget {
                       .toList(),
                 ),
                 SizedBox(height: 10),
-                Text(
-                  '${loadedRecipe.categories}',
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Heading(text: 'Cooking Time'),
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.timer,
+                              size: 25,
+                              color: Colors.grey[700],
+                            ),
+                            SizedBox(
+                              width: width * 0.05,
+                            ),
+                            Text(
+                              '${loadedRecipe.duration} min',
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.grey[700],
+                                fontFamily: 'Inter',
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-                SizedBox(height: 10),
-                Text(
-                  'recipe image   ${loadedRecipe.imageUrl}',
-                ),
-                SizedBox(height: 10),
-                Text(
-                  'chef image${loadedRecipe.chefImageUrl}',
-                ),
-                SizedBox(height: 10),
-                Text(
-                  ' duration   ${loadedRecipe.duration} min',
-                ),
-                SizedBox(height: 10),
                 CheckedItemsList(
                   heading: 'Steps',
                   items: loadedRecipe.steps
@@ -130,9 +166,38 @@ class RecipeDetailScreen extends StatelessWidget {
                       )
                       .toList(),
                 ),
-                SizedBox(height: 1000),
-                Text(
-                  '${loadedRecipe.categories}',
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Heading(text: 'Categories'),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        height: height * 0.5,
+                        child: GridView.builder(
+                          padding: const EdgeInsets.fromLTRB(10, 10, 10, 5),
+                          itemCount: loadedRecipe.categories.length,
+                          gridDelegate:
+                              SliverGridDelegateWithMaxCrossAxisExtent(
+                            maxCrossAxisExtent: 200,
+                            childAspectRatio: 1 / 1,
+                            crossAxisSpacing: 10,
+                            mainAxisSpacing: 10,
+                          ),
+                          itemBuilder: (ctx, i) => CategoryListItem(
+                            categoryId: recipeCategories[i].id,
+                            colorA: recipeCategories[i].colorA,
+                            colorB: recipeCategories[i].colorB,
+                            iconImageUrl: recipeCategories[i].iconImageUrl,
+                            title: recipeCategories[i].title,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),

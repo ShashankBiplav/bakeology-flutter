@@ -19,7 +19,7 @@ class _StatefulButtonState extends State<StatefulButton> {
   @override
   Widget build(BuildContext context) {
     return _isLoading
-        ? Center(child: CircularProgressIndicator())
+        ? Center(child: CircularProgressIndicator(),)
         : NeumorphicButton(
             onPressed: () {
               setState(() {
