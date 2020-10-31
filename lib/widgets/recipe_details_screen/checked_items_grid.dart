@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 import '../../models/checked_item.dart';
+import './heading.dart';
 
 class CheckedItemsGrid extends StatefulWidget {
   final List<CheckedItem> items;
@@ -29,13 +30,8 @@ class _CheckedItemsGridState extends State<CheckedItemsGrid> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          NeumorphicText(
-            widget.heading,
-            style: NeumorphicStyle(depth: 3, intensity: 1, color: Colors.grey),
-            textStyle: NeumorphicTextStyle(
-                fontSize: 18,
-                fontFamily: 'Poppins',
-                fontWeight: FontWeight.w400),
+          Heading(
+            text: widget.heading,
           ),
           Container(
             height: isPortrait ? height * 0.2 : height * 0.3,

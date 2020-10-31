@@ -16,6 +16,7 @@ import './providers/recipe_provider.dart';
 import './providers/category_provider.dart';
 import './providers/authentication_provider.dart';
 import './providers/user_provider.dart';
+import './providers/chef_provider.dart';
 
 void main() {
   runApp(MyApp());
@@ -35,6 +36,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (ctx) => CategoryProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (ctx) => ChefProvider(),
         ),
         ChangeNotifierProxyProvider<AuthenticationProvider, UserProvider>(
           create: null,

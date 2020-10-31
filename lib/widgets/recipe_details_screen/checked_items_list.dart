@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 import '../../models/checked_item.dart';
+import './heading.dart';
 
 class CheckedItemsList extends StatefulWidget {
   final List<CheckedItem> items;
@@ -29,26 +30,24 @@ class _CheckedItemsListState extends State<CheckedItemsList> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          NeumorphicText(
-            widget.heading,
-            style: NeumorphicStyle(depth: 3, intensity: 1, color: Colors.grey),
-            textStyle: NeumorphicTextStyle(
-                fontSize: 18,
-                fontFamily: 'Poppins',
-                fontWeight: FontWeight.w400),
+          Heading(
+            text: widget.heading,
           ),
           Container(
             height: isPortrait ? height * 0.4 : height * 0.6,
             child: ListView.builder(
               itemCount: widget.items.length,
               itemBuilder: (ctx, index) => Padding(
-                padding: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
+                padding: const EdgeInsets.only(
+                    left: 10, right: 10, top: 10, bottom: 10),
                 child: Neumorphic(
                   child: Center(
                     child: CheckboxListTile(
-
                         controlAffinity: ListTileControlAffinity.leading,
-                        title: Text('${widget.items[index].title}', maxLines: 3,),
+                        title: Text(
+                          '${widget.items[index].title}',
+                          maxLines: 3,
+                        ),
                         value: widget.items[index].value,
                         onChanged: (value) {
                           setState(() {
