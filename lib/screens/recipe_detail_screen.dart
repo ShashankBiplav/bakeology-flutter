@@ -12,6 +12,7 @@ import '../widgets/recipe_details_screen/checked_items_list.dart';
 import '../widgets/recipe_details_screen/heading.dart';
 import '../widgets/recipe_details_screen/display_avatar.dart';
 import '../widgets/recipe_details_screen/stateful_button.dart';
+import '../widgets/recipe_details_screen/favourites_button.dart';
 import '../widgets/category_list_item.dart';
 
 import '../models/checked_item.dart';
@@ -23,28 +24,30 @@ class RecipeDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final recipeId = ModalRoute.of(context).settings.arguments as String;
-    final loadedRecipe =
-        Provider.of<RecipeProvider>(context, listen: false).findById(recipeId); //load the recipe with its id
-    final allCategories =
-        Provider.of<CategoryProvider>(context, listen: false).categories; // all categories of the application
+    final loadedRecipe = Provider.of<RecipeProvider>(context, listen: false)
+        .findById(recipeId); //load the recipe with its id
+    final allCategories = Provider.of<CategoryProvider>(context, listen: false)
+        .categories; // all categories of the application
 
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     bool isPortrait =
         MediaQuery.of(context).orientation == Orientation.portrait;
-    final loadedRecipeCategories = loadedRecipe.categories; //all the categories that belong to this recipe
-    List<Category> recipeCategories= []; //empty array to create list of all categories that belong to this recipe
-    // loop to filter one array 
+    final loadedRecipeCategories =
+        loadedRecipe.categories; //all the categories that belong to this recipe
+    List<Category> recipeCategories =
+        []; //empty array to create list of all categories that belong to this recipe
+    // loop to filter one array
     for (var i = 0; i < loadedRecipeCategories.length; i++) {
       Category category = allCategories
           .firstWhere((element) => element.id == loadedRecipeCategories[i]);
       if (category != null) {
         recipeCategories.add(category);
-      }
-      else{
+      } else {
         return null;
       }
     }
+
     return Scaffold(
       backgroundColor: Color.fromRGBO(227, 234, 237, 1),
       body: CustomScrollView(
@@ -132,23 +135,31 @@ class RecipeDetailScreen extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Icon(
-                              Icons.timer,
-                              size: 25,
-                              color: Colors.grey[700],
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.timer,
+                                  size: 25,
+                                  color: Colors.grey[700],
+                                ),
+                                SizedBox(
+                                  width: width * 0.05,
+                                ),
+                                Text(
+                                  '${loadedRecipe.duration} min',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.grey[700],
+                                    fontFamily: 'Inter',
+                                  ),
+                                ),
+                              ],
                             ),
-                            SizedBox(
-                              width: width * 0.05,
-                            ),
-                            Text(
-                              '${loadedRecipe.duration} min',
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.grey[700],
-                                fontFamily: 'Inter',
-                              ),
+                            FavouritesButton(
+                              recipe: loadedRecipe,
                             ),
                           ],
                         ),

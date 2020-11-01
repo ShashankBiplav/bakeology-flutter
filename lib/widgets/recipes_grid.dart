@@ -1,7 +1,10 @@
+import 'package:bakeology/providers/authentication_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/recipe_provider.dart';
+import '../providers/user_provider.dart';
+import '../providers/authentication_provider.dart';
 
 import '../widgets/recipe_grid_item.dart';
 
@@ -23,6 +26,9 @@ class _RecipesGridState extends State<RecipesGrid> {
       setState(() {
         _isLoading = false;
       });
+      Provider.of<AuthenticationProvider>(context,listen: false).isAuthenticated ? 
+      Provider.of<UserProvider>(context, listen: false).fetchAndSetFavouriteRecipes() : null ;
+      print(Provider.of<UserProvider>(context, listen: false).fetchAndSetFavouriteRecipes());
     });
     super.initState();
   }

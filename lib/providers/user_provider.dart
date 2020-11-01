@@ -118,4 +118,8 @@ class UserProvider with ChangeNotifier {
       throw error;
     }
   }
+  //function to fetch a product via its id
+  bool isRecipeFavourite(String recipeId) {
+    return _favouriteRecipes.contains((recipe) => recipe.id == recipeId);
+  }
 }
