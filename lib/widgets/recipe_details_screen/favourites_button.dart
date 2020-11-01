@@ -15,64 +15,59 @@ class FavouritesButton extends StatefulWidget {
 }
 
 class _FavouritesButtonState extends State<FavouritesButton> {
-  bool _isLoading = false;
   @override
   Widget build(BuildContext context) {
-    bool isAuthenticated = Provider.of<AuthenticationProvider>(context, listen: false).isAuthenticated;
+    bool isAuthenticated =
+        Provider.of<AuthenticationProvider>(context, listen: false)
+            .isAuthenticated;
     bool isCurrentRecipeFavourite = false;
     if (isAuthenticated) {
-      isCurrentRecipeFavourite = Provider.of<UserProvider>(context, listen: false).isRecipeFavourite(widget.recipe);
-      print(isCurrentRecipeFavourite);
+      isCurrentRecipeFavourite =
+          Provider.of<UserProvider>(context, listen: false)
+              .isRecipeFavourite(widget.recipe);
     }
-    return _isLoading
-        ? Center(
-            child: Padding(
-              padding: const EdgeInsets.only(right: 30),
-              child: CircularProgressIndicator(),
-            ),
-          )
-        : Row(
-            children: [
-              NeumorphicButton(
-                onPressed: () {
-                  setState(() {
-                    _isLoading = true;
-                  });
-                  if (isAuthenticated) {
-                    if (isCurrentRecipeFavourite) {
-                      Provider.of<UserProvider>(context, listen: false).removeRecipeFromFavourite(widget.recipe)
-                          .then((_) => setState(() {
-                                isCurrentRecipeFavourite = false;
-                                _isLoading = false;
-                              }));
-                    } else {
-                      Provider.of<UserProvider>(context, listen: false).markRecipeAsFavourite(widget.recipe).then((_) => setState(() {
-                                isCurrentRecipeFavourite = true;
-                                _isLoading = false;
-                              }));
-                    }
-                  } else {
-                    Navigator.of(context).pushReplacementNamed('/');
-                  }
-                },
-                child: Container(
-                  child: Row(
-                    children: [
-                      Text(isCurrentRecipeFavourite
-                          ? 'Remove From Favourites'
-                          : 'Add to Favourites'),
-                      SizedBox(width: 10),
-                      Icon(
-                        isCurrentRecipeFavourite
-                            ? Icons.favorite_rounded
-                            : Icons.favorite_border_rounded,
-                        color: Colors.red[400],
-                      ),
-                    ],
-                  ),
+    return Row(
+      children: [
+        NeumorphicButton(
+          onPressed: () {
+            if (isAuthenticated) {
+              if (isCurrentRecipeFavourite) {
+                Provider.of<UserProvider>(context, listen: false)
+                    .removeRecipeFromFavourite(widget.recipe)
+                    .then((_) => setState(() {
+                          isCurrentRecipeFavourite = false;
+                        }));
+                        setState(() {
+                          isCurrentRecipeFavourite = false;
+                        });
+              } else {
+                Provider.of<UserProvider>(context, listen: false)
+                    .markRecipeAsFavourite(widget.recipe)
+                    .then((_) => setState(() {
+                          isCurrentRecipeFavourite = true;
+                        }));
+                        setState(() {
+                          isCurrentRecipeFavourite = true;
+                        });
+              }
+            } else {
+              Navigator.of(context).pushReplacementNamed('/');
+            }
+          },
+          child: Container(
+            child: Row(
+              children: [
+                Icon(
+                  isCurrentRecipeFavourite
+                      ? Icons.favorite_rounded
+                      : Icons.favorite_border_rounded,
+                  color: Colors.red[400],
                 ),
-              ),
-            ],
-          );
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
   }
 }

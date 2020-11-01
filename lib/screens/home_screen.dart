@@ -109,7 +109,7 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
             Expanded(
-              flex: isPortrait ? 3 : 1,
+              flex: isPortrait ? 6 : 2,
               child: RecipesGrid(),
             ),
           ],
