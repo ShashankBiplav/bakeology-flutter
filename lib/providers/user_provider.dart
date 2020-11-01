@@ -8,14 +8,14 @@ class UserProvider with ChangeNotifier {
   final String authToken;
   final String userId;
 
-  UserProvider({
-    @required this.authToken,
-    @required this.userId,
-  });
-
   List<Recipe> _favouriteRecipes = [];
 
-  List<Recipe> get recipes {
+  UserProvider({
+    this.authToken,
+    this.userId,
+  });
+
+  List<Recipe> get favouriteRecipes {
     return [..._favouriteRecipes];
   }
 
@@ -32,12 +32,11 @@ class UserProvider with ChangeNotifier {
         },
       );
       final extractedData = json.decode(response.body) as Map<String, dynamic>;
-      print(extractedData);
-      if (extractedData["recipes"]["favourites"].length > 0) {
+      if (extractedData["recipes"].length <= 0) {
         return null;
       }
       final List<Recipe> loadedRecipes = [];
-      extractedData["recipes"]["favourites"].forEach((recipeData) {
+      extractedData["recipes"].forEach((recipeData) {
         loadedRecipes.add(
           Recipe(
               id: recipeData["_id"],
@@ -56,6 +55,7 @@ class UserProvider with ChangeNotifier {
         );
       });
       _favouriteRecipes = loadedRecipes;
+      print(' fav recipes         ...............${_favouriteRecipes}');
       notifyListeners();
     } catch (error) {
       print(error);
@@ -63,15 +63,13 @@ class UserProvider with ChangeNotifier {
     }
   }
 
-  // ignore: todo
-  //TODO: Check for optimistic updating here and below functions
-  Future<void> markRecipeAsFavourite(String recipeId, Recipe recipe) async {
+  Future<void> markRecipeAsFavourite(Recipe recipe) async {
     //status code from server is 200, 404 and 500 also exists
     final List<Recipe> originalFavouriteRecipes = _favouriteRecipes;
     _favouriteRecipes.add(recipe);
     notifyListeners();
     final url =
-        'https://bakeology-alpha-stage.herokuapp.com/user/mark-favourite/$recipeId';
+        'https://bakeology-alpha-stage.herokuapp.com/user/mark-favourite/${recipe.id}';
     try {
       final response = await http.put(
         url,
@@ -91,15 +89,13 @@ class UserProvider with ChangeNotifier {
     }
   }
 
-  Future<void> removeRecipeFromFavourite(String recipeId) async {
+  Future<void> removeRecipeFromFavourite(Recipe recipe) async {
     //success status code is 200, 404 and 500 also exists
     final List<Recipe> originalFavouriteRecipes = _favouriteRecipes;
-    final List<Recipe> newRecipesList =
-        _favouriteRecipes.where((recipe) => recipe.id != recipeId);
-    _favouriteRecipes = newRecipesList;
+    _favouriteRecipes.remove(recipe);
     notifyListeners();
     final url =
-        'https://bakeology-alpha-stage.herokuapp.com/user/remove-favourite/$recipeId';
+        'https://bakeology-alpha-stage.herokuapp.com/user/remove-favourite/${recipe.id}';
     try {
       final response = await http.put(
         url,
@@ -118,8 +114,18 @@ class UserProvider with ChangeNotifier {
       throw error;
     }
   }
-  //function to fetch a product via its id
-  bool isRecipeFavourite(String recipeId) {
-    return _favouriteRecipes.contains((recipe) => recipe.id == recipeId);
+
+  //function to fetch a recipe is favourite
+  bool isRecipeFavourite(Recipe recipe) {
+    Recipe favRecipe;
+    if (_favouriteRecipes.length > 0) {
+      favRecipe = _favouriteRecipes.firstWhere((rcp) => rcp.id == recipe.id,
+          orElse: () => null);
+      if (favRecipe != null) {
+        return true;
+      }
+      return false;
+    }
+    return false;
   }
 }

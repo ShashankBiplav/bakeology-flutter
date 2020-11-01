@@ -28,7 +28,6 @@ class _RecipesGridState extends State<RecipesGrid> {
       });
       Provider.of<AuthenticationProvider>(context,listen: false).isAuthenticated ? 
       Provider.of<UserProvider>(context, listen: false).fetchAndSetFavouriteRecipes() : null ;
-      print(Provider.of<UserProvider>(context, listen: false).fetchAndSetFavouriteRecipes());
     });
     super.initState();
   }
