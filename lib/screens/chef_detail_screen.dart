@@ -23,9 +23,9 @@ class ChefDetailScreen extends StatelessWidget {
         title: NeumorphicText(
           '${chef.name}',
           style: NeumorphicStyle(
-            depth: 4,
+            depth: 2,
             intensity: 1,
-            color: Colors.grey[850],
+            // color: Colors.grey[850],
           ),
           textStyle: NeumorphicTextStyle(
               fontWeight: FontWeight.w500, fontSize: 18, fontFamily: 'Poppins'),

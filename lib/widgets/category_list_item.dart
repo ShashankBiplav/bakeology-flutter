@@ -3,6 +3,8 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 import '../helpers/color_generator.dart';
 
+import '../screens/categorized_recipes_screen.dart';
+
 class CategoryListItem extends StatelessWidget {
   final String categoryId;
   final String colorA;
@@ -22,7 +24,10 @@ class CategoryListItem extends StatelessWidget {
     return NeumorphicButton(
       provideHapticFeedback: true,
       padding: EdgeInsets.all(0),
-      onPressed: () {},
+      onPressed: () {
+        Navigator.of(context).pushNamed(CategorizedRecipesScreen.routeName,
+            arguments: categoryId);
+      },
       style: NeumorphicStyle(
         shape: NeumorphicShape.convex,
         boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(15)),
