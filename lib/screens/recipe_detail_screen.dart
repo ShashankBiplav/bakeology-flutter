@@ -105,7 +105,7 @@ class RecipeDetailScreen extends StatelessWidget {
                                 fontWeight: FontWeight.w600),
                           ),
                           SizedBox(
-                            width: isPortrait ? width * 0.15 : width * 0.2,
+                            width: isPortrait ? width * 0.03 : width * 0.15,
                           ),
                           StatefulButton(chefId: loadedRecipe.chef),
                         ],

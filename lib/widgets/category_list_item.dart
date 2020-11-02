@@ -10,8 +10,8 @@ class CategoryListItem extends StatelessWidget {
   final String iconImageUrl;
   final String title;
   CategoryListItem(
-      { @required this.title,
-        @required this.categoryId,
+      {@required this.title,
+      @required this.categoryId,
       @required this.colorA,
       @required this.colorB,
       @required this.iconImageUrl});
@@ -33,15 +33,47 @@ class CategoryListItem extends StatelessWidget {
       ),
       child: Container(
         decoration: BoxDecoration(
-          gradient: LinearGradient(stops: [0.3, 1],
+          gradient: LinearGradient(
+            stops: [0.3, 1],
             begin: Alignment.topRight,
             end: Alignment.bottomLeft,
             colors: [colorOne, colorTwo],
           ),
-         
         ),
         width: 150,
-        // color: Colors.amber,
+        child: FractionallySizedBox(
+          heightFactor: 0.9,
+          widthFactor: 0.9,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Container(
+                    margin: const EdgeInsets.only(right: 5, top: 5),
+                    height: 30,
+                    width: 30,
+                    child: Image.network(
+                        'https://bakeology-alpha-stage.herokuapp.com/$iconImageUrl'),
+                  ),
+                ],
+              ),
+              Container(
+                padding: const EdgeInsets.only(left: 10, bottom: 5),
+                child: Text(
+                  '$title',
+                  style: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontSize: 17,
+                      color: Colors.grey[800]),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

@@ -49,6 +49,7 @@ class RecipeGridItem extends StatelessWidget {
             heightFactor: 0.92,
             widthFactor: 0.92,
             child: Column(
+              mainAxisSize: MainAxisSize.max,
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.only(
@@ -59,7 +60,7 @@ class RecipeGridItem extends StatelessWidget {
                     tag: recipeId,
                     child: Container(
                       margin: EdgeInsets.fromLTRB(3, 0, 3, 0),
-                      height: isPortrait ? height * 0.21 : height * 0.44,
+                      height: isPortrait ? height * 0.21 : height * 0.35,
                       child: Image.network(
                         'https://bakeology-alpha-stage.herokuapp.com/' +
                             recipeImageUrl,
@@ -79,11 +80,13 @@ class RecipeGridItem extends StatelessWidget {
                 ),
                 SizedBox(height: isPortrait ? height * 0.01 : height * 0.025),
                 Row(
+                  mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ClipRRect(
                       borderRadius: BorderRadius.circular(50),
                       child: Container(
+                        // width: isPortrait ? width * 0.3 : width * 0.15,
                         color: Colors.blue[200],
                         child: Row(
                           children: [
@@ -99,18 +102,24 @@ class RecipeGridItem extends StatelessWidget {
                               ),
                             ),
                             SizedBox(
-                              width: isPortrait ? width * 0.01 : width * 0.008,
+                              width: isPortrait ? width * 0.005 : width * 0.008,
                             ),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  chefName,
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 14,
-                                      fontFamily: 'Inter'),
+                                Container(
+                                  width: isPortrait ?width*0.2 :width*0.1,
+                                  child: Text(
+                                    chefName,
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 14,
+                                        fontFamily: 'Inter'),
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 1,
+                                    softWrap: true,
+                                  ),
                                 ),
                                 Text(
                                   'Chef',

@@ -49,7 +49,7 @@ class ChefProvider with ChangeNotifier {
         name: extractedData["chef"]["name"],
         email: extractedData["chef"]["email"],
         isApproved:
-            extractedData["chef"]["isApproved"] == 'true' ? true : false,
+            extractedData["chef"]["isApproved"],
         profileImageUrl: extractedData["chef"]["profileImageUrl"],
         status: extractedData["chef"]["status"],
         recipes: loadedRecipes

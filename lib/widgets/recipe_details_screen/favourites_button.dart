@@ -37,18 +37,22 @@ class _FavouritesButtonState extends State<FavouritesButton> {
                     .then((_) => setState(() {
                           isCurrentRecipeFavourite = false;
                         }));
-                        setState(() {
-                          isCurrentRecipeFavourite = false;
-                        });
+                if (this.mounted) {
+                  setState(() {
+                    isCurrentRecipeFavourite = true;
+                  });
+                }
               } else {
                 Provider.of<UserProvider>(context, listen: false)
                     .markRecipeAsFavourite(widget.recipe)
                     .then((_) => setState(() {
                           isCurrentRecipeFavourite = true;
                         }));
-                        setState(() {
-                          isCurrentRecipeFavourite = true;
-                        });
+                if (this.mounted) {
+                  setState(() {
+                    isCurrentRecipeFavourite = true;
+                  });
+                }
               }
             } else {
               Navigator.of(context).pushReplacementNamed('/');

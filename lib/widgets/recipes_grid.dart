@@ -26,8 +26,11 @@ class _RecipesGridState extends State<RecipesGrid> {
       setState(() {
         _isLoading = false;
       });
-      Provider.of<AuthenticationProvider>(context,listen: false).isAuthenticated ? 
-      Provider.of<UserProvider>(context, listen: false).fetchAndSetFavouriteRecipes() : null ;
+      Provider.of<AuthenticationProvider>(context, listen: false)
+              .isAuthenticated
+          ? Provider.of<UserProvider>(context, listen: false)
+              .fetchAndSetFavouriteRecipes()
+          : null;
     });
     super.initState();
   }
@@ -41,6 +44,7 @@ class _RecipesGridState extends State<RecipesGrid> {
             child: CircularProgressIndicator(),
           )
         : GridView.builder(
+          shrinkWrap: true,
             padding: const EdgeInsets.fromLTRB(10, 10, 10, 5),
             itemCount: fetchedRecipes.length,
             itemBuilder: (ctx, i) => RecipeGridItem(

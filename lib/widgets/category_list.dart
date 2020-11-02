@@ -37,6 +37,7 @@ class _CategoryListState extends State<CategoryList> {
           )
         : Container(
             child: ListView.builder(
+              shrinkWrap: true,
               scrollDirection: Axis.horizontal,
               itemCount: fetchedCategories.length,
               itemBuilder: (context, index) => Padding(

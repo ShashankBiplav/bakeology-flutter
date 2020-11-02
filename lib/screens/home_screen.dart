@@ -71,7 +71,7 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
             Expanded(
-              flex: 1,
+              flex: isPortrait ? 1 : 3,
               child: CategoryList(),
             ),
             Padding(
@@ -109,7 +109,7 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
             Expanded(
-              flex: isPortrait ? 6 : 2,
+              flex: isPortrait ? 5 : 4,
               child: RecipesGrid(),
             ),
           ],
