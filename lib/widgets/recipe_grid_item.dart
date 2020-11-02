@@ -60,7 +60,7 @@ class RecipeGridItem extends StatelessWidget {
                     tag: recipeId,
                     child: Container(
                       margin: EdgeInsets.fromLTRB(3, 0, 3, 0),
-                      height: isPortrait ? height * 0.21 : height * 0.35,
+                      height: isPortrait ? height * 0.19 : height * 0.35,
                       child: Image.network(
                         'https://bakeology-alpha-stage.herokuapp.com/' +
                             recipeImageUrl,

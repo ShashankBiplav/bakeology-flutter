@@ -17,6 +17,8 @@ class AboutScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool _isPortrait =
+        MediaQuery.of(context).orientation == Orientation.portrait;
     return Scaffold(
       backgroundColor: Color.fromRGBO(227, 234, 237, 1),
       appBar: AppBar(
@@ -69,7 +71,9 @@ class AboutScreen extends StatelessWidget {
                     fontWeight: FontWeight.w700),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 90),
+                padding: _isPortrait
+                    ? const EdgeInsets.symmetric(horizontal: 90)
+                    : const EdgeInsets.symmetric(horizontal: 250),
                 child: Divider(),
               ),
               NeumorphicText(
@@ -82,7 +86,9 @@ class AboutScreen extends StatelessWidget {
                     fontWeight: FontWeight.w700),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 70),
+                padding: _isPortrait
+                    ? const EdgeInsets.symmetric(horizontal: 70)
+                    : const EdgeInsets.symmetric(horizontal: 200),
                 child: Divider(),
               ),
               Padding(
@@ -147,12 +153,11 @@ class AboutScreen extends StatelessWidget {
                             shadowDarkColor: Colors.red[900],
                           ),
                         ),
-                        SizedBox(width: 20),
                         Text(
                           'biplavshashank7@gmail.com',
                           style: TextStyle(
                               fontWeight: FontWeight.w600,
-                              fontSize: 17,
+                              fontSize: 15,
                               color: Colors.grey[700]),
                         ),
                       ],

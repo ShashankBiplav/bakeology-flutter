@@ -23,7 +23,7 @@ class HomeScreen extends StatelessWidget {
           centerTitle: true,
           iconTheme: IconThemeData(color: Colors.black),
           title: NeumorphicText(
-            'Bake~o~logy',
+            'Bakeology',
             style: NeumorphicStyle(
               depth: 4,
               intensity: 1,
