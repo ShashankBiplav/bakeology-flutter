@@ -11,6 +11,7 @@ import './screens/all_categories_screen.dart';
 import './screens/authentication_screen.dart';
 import './screens/all_recipes_screen.dart';
 import './screens/forgot_password_screen.dart';
+import './screens/about_screen.dart';
 
 import './providers/recipe_provider.dart';
 import './providers/category_provider.dart';
@@ -79,6 +80,7 @@ class MyApp extends StatelessWidget {
             AuthenticationScreen.routeName: (ctx) => AuthenticationScreen(),
             AllRecipesScreen.routeName: (ctx) => AllRecipesScreen(),
             ForgotPasswordScreen.routeName: (ctx) => ForgotPasswordScreen(),
+            AboutScreen.routeName: (ctx) => AboutScreen(),
           },
         ),
       ),

@@ -6,7 +6,8 @@ import '../providers/authentication_provider.dart';
 
 import '../screens/all_categories_screen.dart';
 import '../screens/all_recipes_screen.dart';
-import '../screens/forgot_password_screen.dart';
+import '../screens/favourites_screen.dart';
+import '../screens/about_screen.dart';
 
 class NavigationDrawer extends StatelessWidget {
   @override
@@ -37,7 +38,7 @@ class NavigationDrawer extends StatelessWidget {
                             fontWeight: FontWeight.bold),
                       ),
                       NeumorphicText(
-                        'Bakeology.',
+                        'Bake~o~logy.',
                         style: NeumorphicStyle(
                             depth: 4, intensity: 1, color: Colors.grey[700]),
                         textStyle: NeumorphicTextStyle(
@@ -53,7 +54,9 @@ class NavigationDrawer extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           NeumorphicText(
-                            'Shashank',
+                            authData.isAuthenticated
+                                ? '${authData.email}'
+                                : 'Guest',
                             style: NeumorphicStyle(
                               depth: 3,
                               intensity: 1,
@@ -70,6 +73,9 @@ class NavigationDrawer extends StatelessWidget {
                   ),
                 ),
                 Divider(),
+                SizedBox(
+                  height: 20,
+                ),
                 Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -80,7 +86,15 @@ class NavigationDrawer extends StatelessWidget {
                       Navigator.of(context).pushReplacementNamed('/');
                     },
                     child: ListTile(
-                      leading: Icon(Icons.home),
+                      leading: NeumorphicIcon(
+                        Icons.home,
+                        size: 30,
+                        style: NeumorphicStyle(
+                          color: Colors.blue,
+                          shadowLightColor: Colors.blue[200],
+                          shadowDarkColor: Colors.blue[900],
+                        ),
+                      ),
                       title: Text('Home'),
                     ),
                   ),
@@ -97,7 +111,15 @@ class NavigationDrawer extends StatelessWidget {
                           .pushReplacementNamed(AllCategoriesScreen.routeName);
                     },
                     child: ListTile(
-                      leading: Icon(Icons.home),
+                      leading: NeumorphicIcon(
+                        Icons.category_rounded,
+                        size: 30,
+                        style: NeumorphicStyle(
+                          color: Colors.lime[600],
+                          shadowLightColor: Colors.lime[200],
+                          shadowDarkColor: Colors.lime[800],
+                        ),
+                      ),
                       title: Text('All categories'),
                     ),
                   ),
@@ -114,29 +136,49 @@ class NavigationDrawer extends StatelessWidget {
                           .pushReplacementNamed(AllRecipesScreen.routeName);
                     },
                     child: ListTile(
-                      leading: Icon(Icons.home),
+                      leading: NeumorphicIcon(
+                        Icons.restaurant_menu_rounded,
+                        size: 30,
+                        style: NeumorphicStyle(
+                          color: Colors.teal,
+                          shadowLightColor: Colors.teal[200],
+                          shadowDarkColor: Colors.teal[900],
+                        ),
+                      ),
                       title: Text('All Recipes'),
                     ),
                   ),
                 ),
                 // Divider(),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  child: NeumorphicButton(
-                    provideHapticFeedback: true,
-                    padding: EdgeInsets.all(0),
-                    onPressed: () {
-                      Navigator.of(context)
-                          .pushReplacementNamed(ForgotPasswordScreen.routeName);
-                    },
-                    child: ListTile(
-                      leading: Icon(Icons.home),
-                      title: Text('Forgot Password'),
+                if (authData.isAuthenticated)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 10),
+                    child: NeumorphicButton(
+                      provideHapticFeedback: true,
+                      padding: EdgeInsets.all(0),
+                      onPressed: () {
+                        Navigator.of(context)
+                            .pushReplacementNamed(FavouritesScreen.routeName);
+                      },
+                      child: ListTile(
+                        leading: NeumorphicIcon(
+                          Icons.favorite_rounded,
+                          size: 30,
+                          style: NeumorphicStyle(
+                            color: Colors.red,
+                            shadowLightColor: Colors.red[200],
+                            shadowDarkColor: Colors.red[800],
+                          ),
+                        ),
+                        title: Text('Your Favourites'),
+                      ),
                     ),
                   ),
-                ),
-                // Divider(),
+                SizedBox(height: 20),
+                Divider(),
+                SizedBox(height: 20),
+
                 Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -151,15 +193,55 @@ class NavigationDrawer extends StatelessWidget {
                           .logout();
                     },
                     child: ListTile(
-                      leading: Icon(authData.isAuthenticated
-                          ? Icons.logout
-                          : Icons.login),
-                      title:
-                          Text(authData.isAuthenticated ? 'Logout' : 'Login'),
+                      leading: NeumorphicIcon(
+                        authData.isAuthenticated ? Icons.logout : Icons.login,
+                        size: 30,
+                        style: NeumorphicStyle(
+                          color: authData.isAuthenticated
+                              ? Colors.amber[800]
+                              : Colors.green,
+                          shadowLightColor: authData.isAuthenticated
+                              ? Colors.amber[200]
+                              : Colors.green[200],
+                          shadowDarkColor: authData.isAuthenticated
+                              ? Colors.amber[900]
+                              : Colors.green[900],
+                        ),
+                      ),
+                      title: Text(
+                        authData.isAuthenticated ? 'Logout' : 'Login',
+                        style: TextStyle(
+                            color: authData.isAuthenticated
+                                ? Colors.amber[900]
+                                : Colors.green),
+                      ),
                     ),
                   ),
                 ),
-                // Divider(),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  child: NeumorphicButton(
+                    provideHapticFeedback: true,
+                    padding: EdgeInsets.all(0),
+                    onPressed: () {
+                      Navigator.of(context)
+                          .pushReplacementNamed(AboutScreen.routeName);
+                    },
+                    child: ListTile(
+                      leading: NeumorphicIcon(
+                          Icons.developer_mode_rounded,
+                          size: 30,
+                          style: NeumorphicStyle(
+                            color: Colors.greenAccent[700],
+                            shadowLightColor: Colors.greenAccent[200],
+                            shadowDarkColor: Colors.green[800],
+                          ),
+                        ),
+                      title: Text('About'),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),

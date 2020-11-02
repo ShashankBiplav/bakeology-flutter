@@ -10,6 +10,7 @@ import '../models/http_exception.dart';
 
 class AuthenticationProvider with ChangeNotifier {
   String _token;
+  String _email;
   DateTime _expiryDate;
   String _userId;
   Timer _authTimer;
@@ -33,6 +34,15 @@ class AuthenticationProvider with ChangeNotifier {
         _expiryDate.isAfter(DateTime.now()) &&
         _token != null) {
       return _token;
+    }
+    return null;
+  }
+
+  String get email {
+     if (_expiryDate != null &&
+        _expiryDate.isAfter(DateTime.now()) &&
+        _token != null) {
+      return _email;
     }
     return null;
   }
@@ -91,6 +101,7 @@ class AuthenticationProvider with ChangeNotifier {
       }
       _token = responseData['token'];
       _userId = responseData['userId'];
+      _email = email;
       _expiryDate = DateTime.now().add(
         Duration(
           hours: 23,
@@ -105,6 +116,7 @@ class AuthenticationProvider with ChangeNotifier {
         {
           'token': _token,
           'userId': _userId,
+          'email' : _email,
           'expiryDate': _expiryDate.toIso8601String(),
         },
       );
@@ -120,6 +132,7 @@ class AuthenticationProvider with ChangeNotifier {
     _token = null;
     _userId = null;
     _expiryDate = null;
+    _email = null;
     if (_authTimer != null) {
       _authTimer.cancel();
       _authTimer = null;
@@ -151,6 +164,7 @@ class AuthenticationProvider with ChangeNotifier {
     }
     _token = extractedUserData['token'];
     _userId = extractedUserData['userId'];
+    _email = extractedUserData['email'];
     _expiryDate = expiryDate;
     notifyListeners();
     _autoLogout();

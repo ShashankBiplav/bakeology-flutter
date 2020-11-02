@@ -87,12 +87,12 @@ class RecipeGridItem extends StatelessWidget {
                       borderRadius: BorderRadius.circular(50),
                       child: Container(
                         // width: isPortrait ? width * 0.3 : width * 0.15,
-                        color: Colors.blue[200],
+                        color: Colors.blueGrey[100],
                         child: Row(
                           children: [
                             CircleAvatar(
                               radius: 17,
-                              backgroundColor: Colors.blue,
+                              backgroundColor: Colors.blueGrey,
                               child: CircleAvatar(
                                 radius: 15,
                                 backgroundColor: Colors.white70,

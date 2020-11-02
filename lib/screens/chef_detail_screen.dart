@@ -47,7 +47,7 @@ class ChefDetailScreen extends StatelessWidget {
                     intensity: 1),
                 child: CircleAvatar(
                   radius: 100,
-                  backgroundColor: Colors.grey[700],
+                  backgroundColor: Colors.grey,
                   child: CircleAvatar(
                     radius: 95,
                     backgroundColor: Colors.white70,
@@ -69,7 +69,7 @@ class ChefDetailScreen extends StatelessWidget {
                     children: [
                       Icon(
                           chef.isApproved
-                              ? Icons.done_all_rounded
+                              ? Icons.verified_user_rounded
                               : Icons.warning,
                           color:
                               chef.isApproved ? Colors.green[600] : Colors.red),
