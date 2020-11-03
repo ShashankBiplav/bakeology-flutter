@@ -11,7 +11,7 @@ class SplashScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            SpinKitSquareCircle(
+            SpinKitCubeGrid(
               color: Theme.of(context).accentColor,
               size: 100,
             )

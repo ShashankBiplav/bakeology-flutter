@@ -38,7 +38,7 @@ class NavigationDrawer extends StatelessWidget {
                             fontWeight: FontWeight.bold),
                       ),
                       NeumorphicText(
-                        'Bake~o~logy.',
+                        'Bake<o>logy.',
                         style: NeumorphicStyle(
                             depth: 4, intensity: 1, color: Colors.grey[700]),
                         textStyle: NeumorphicTextStyle(

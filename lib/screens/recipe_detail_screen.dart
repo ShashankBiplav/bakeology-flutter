@@ -101,7 +101,7 @@ class RecipeDetailScreen extends StatelessWidget {
                             '${loadedRecipe.chefName}',
                             style: TextStyle(
                                 fontFamily: 'Inter',
-                                fontSize: 19,
+                                fontSize: 17,
                                 fontWeight: FontWeight.w600),
                           ),
                           SizedBox(
