@@ -89,7 +89,6 @@ class OnboardingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: IntroductionScreen(
-        nextFlex: 0,
         dotsFlex: 0,
         curve: Curves.elasticIn,
         skip: FlatButton(
