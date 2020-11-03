@@ -9,6 +9,7 @@ import '../screens/authentication_screen.dart';
 import '../screens/splash_screen.dart';
 
 class HomeAuthSplashController extends StatelessWidget {
+  static const routeName = '/home-auth-splash-controller';
   @override
   Widget build(BuildContext context) {
     bool _isAuthenticated =

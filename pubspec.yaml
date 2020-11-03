@@ -2,8 +2,7 @@ name: bakeology
 description: An awesome Food Recipe app that makes your tastebuds dripping and
   your heart thumping to get your hands-on cooking!
 
-
-publish_to: 'none' 
+publish_to: 'none'
 
 version: 1.0.0+1
 
@@ -13,6 +12,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  after_layout: ^1.0.7+2
   cupertino_icons: ^0.1.3
   flutter_neumorphic: ^3.0.3
   flutter_spinkit: ^4.1.2+1
@@ -28,14 +28,13 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-
 flutter:
 
   uses-material-design: true
 
   assets:
     - assets/images/
-  
+
   fonts:
     - family: Inter
       fonts:

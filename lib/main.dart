@@ -22,6 +22,7 @@ import './providers/user_provider.dart';
 import './providers/chef_provider.dart';
 
 import './widgets/home_auth_splash_controller.dart';
+import './widgets/onboarding_controller.dart';
 
 void main() {
   runApp(MyApp());
@@ -31,17 +32,6 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    SharedPreferences prefs;
-    Future<Widget> displayOnboarding() async {
-      prefs = await SharedPreferences.getInstance();
-      bool onboardingVisibilityStatus = prefs.getBool('displayOnboarding');
-      if (onboardingVisibilityStatus == null) {
-        prefs.setBool('displayOnboarding', false);
-        return OnboardingScreen();
-      }
-      return null;
-    }
-
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
@@ -73,12 +63,7 @@ class MyApp extends StatelessWidget {
           fontFamily: 'Poppins',
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: FutureBuilder(
-            future: displayOnboarding(),
-            builder: (ctx, snapshot) =>
-                snapshot.connectionState == ConnectionState.waiting
-                    ? SplashScreen()
-                    : HomeAuthSplashController()),
+        home: OnboardingController(),
         routes: {
           HomeScreen.routeName: (ctx) => HomeScreen(),
           RecipeDetailScreen.routeName: (ctx) => RecipeDetailScreen(),
@@ -92,6 +77,8 @@ class MyApp extends StatelessWidget {
           ForgotPasswordScreen.routeName: (ctx) => ForgotPasswordScreen(),
           AboutScreen.routeName: (ctx) => AboutScreen(),
           OnboardingScreen.routeName: (ctx) => OnboardingScreen(),
+          HomeAuthSplashController.routeName: (ctx) =>
+              HomeAuthSplashController(),
         },
       ),
     );
