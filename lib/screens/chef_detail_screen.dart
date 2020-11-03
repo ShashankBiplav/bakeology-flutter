@@ -47,7 +47,7 @@ class ChefDetailScreen extends StatelessWidget {
                     intensity: 1),
                 child: CircleAvatar(
                   radius: 100,
-                  backgroundColor: Colors.grey,
+                  backgroundColor: Theme.of(context).accentColor,
                   child: CircleAvatar(
                     radius: 95,
                     backgroundColor: Colors.white70,

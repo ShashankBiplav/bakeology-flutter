@@ -45,7 +45,7 @@ class StartingText extends StatelessWidget {
                 child: NeumorphicText(
                   '.',
                   style: NeumorphicStyle(
-                      depth: 10, color: Theme.of(context).accentColor),
+                      depth: 10, color: Colors.greenAccent[700]),
                   textStyle: NeumorphicTextStyle(
                       fontFamily: 'Poppins',
                       fontSize: 90.0,

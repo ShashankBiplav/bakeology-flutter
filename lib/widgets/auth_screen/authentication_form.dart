@@ -12,6 +12,8 @@ import '../../models/http_exception.dart';
 import '../../screens/home_screen.dart';
 import '../../screens/forgot_password_screen.dart';
 
+import '../../screens/onboarding_screen.dart';
+
 enum AuthenticationMode {
   SIGNUP,
   LOGIN,
@@ -150,7 +152,7 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
                 if (_authenticationMode == AuthenticationMode.SIGNUP)
                   TextFormField(
                     keyboardType: TextInputType.name,
-                    cursorColor: Theme.of(context).accentColor,
+                    cursorColor: Colors.greenAccent[700],
                     enabled: _authenticationMode == AuthenticationMode.SIGNUP,
                     decoration: InputDecoration(
                       labelText: 'NAME',
@@ -160,7 +162,7 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
                           color: Colors.grey),
                       focusedBorder: UnderlineInputBorder(
                         borderSide:
-                            BorderSide(color: Theme.of(context).accentColor),
+                            BorderSide(color: Colors.greenAccent[700]),
                       ),
                     ),
                     validator: _authenticationMode == AuthenticationMode.SIGNUP
@@ -178,7 +180,7 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
                 SizedBox(height: widget.height * 0.025),
                 TextFormField(
                   keyboardType: TextInputType.emailAddress,
-                  cursorColor: Theme.of(context).accentColor,
+                  cursorColor: Colors.greenAccent[700],
                   decoration: InputDecoration(
                     labelText: 'EMAIL',
                     labelStyle: TextStyle(
@@ -187,7 +189,7 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
                         color: Colors.grey),
                     focusedBorder: UnderlineInputBorder(
                       borderSide:
-                          BorderSide(color: Theme.of(context).accentColor),
+                          BorderSide(color: Colors.greenAccent[700]),
                     ),
                   ),
                   validator: (value) {
@@ -199,7 +201,7 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
                 ),
                 SizedBox(height: widget.height * 0.025),
                 TextFormField(
-                  cursorColor: Theme.of(context).accentColor,
+                  cursorColor: Colors.greenAccent[700],
                   decoration: InputDecoration(
                     labelText: 'PASSWORD',
                     labelStyle: TextStyle(
@@ -208,7 +210,7 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
                         color: Colors.grey),
                     focusedBorder: UnderlineInputBorder(
                       borderSide:
-                          BorderSide(color: Theme.of(context).accentColor),
+                          BorderSide(color: Colors.greenAccent[700]),
                     ),
                   ),
                   obscureText: true,
@@ -225,7 +227,7 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
                 SizedBox(height: widget.height * 0.025),
                 if (_authenticationMode == AuthenticationMode.SIGNUP)
                   TextFormField(
-                    cursorColor: Theme.of(context).accentColor,
+                    cursorColor: Colors.greenAccent[700],
                     enabled: _authenticationMode == AuthenticationMode.SIGNUP,
                     decoration: InputDecoration(
                       labelText: 'CONFIRM PASSWORD',
@@ -235,7 +237,7 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
                           color: Colors.grey),
                       focusedBorder: UnderlineInputBorder(
                         borderSide:
-                            BorderSide(color: Theme.of(context).accentColor),
+                            BorderSide(color: Colors.greenAccent[700]),
                       ),
                     ),
                     obscureText: true,
@@ -263,7 +265,7 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
                       child: Text(
                         'Forgot Password',
                         style: TextStyle(
-                            color: Theme.of(context).accentColor,
+                            color: Colors.greenAccent[700],
                             fontWeight: FontWeight.w500,
                             fontFamily: 'Poppins',
                             decoration: TextDecoration.underline),
@@ -342,7 +344,7 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
                     : 'Login',
                 style: TextStyle(
                     fontSize: 18,
-                    color: Theme.of(context).accentColor,
+                    color: Colors.greenAccent[700],
                     fontFamily: 'Poppins',
                     fontWeight: FontWeight.w500,
                     decoration: TextDecoration.underline),
@@ -369,7 +371,7 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
             'Skip',
             style: TextStyle(
                 fontSize: 18,
-                color: Theme.of(context).accentColor.withOpacity(0.3),
+                color: Colors.greenAccent[700].withOpacity(0.3),
                 fontFamily: 'Poppins',
                 fontWeight: FontWeight.w500,
                 decoration: TextDecoration.underline),

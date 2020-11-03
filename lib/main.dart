@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import './screens/splash_screen.dart';
 import './screens/home_screen.dart';
@@ -12,12 +13,15 @@ import './screens/authentication_screen.dart';
 import './screens/all_recipes_screen.dart';
 import './screens/forgot_password_screen.dart';
 import './screens/about_screen.dart';
+import './screens/onboarding_screen.dart';
 
 import './providers/recipe_provider.dart';
 import './providers/category_provider.dart';
 import './providers/authentication_provider.dart';
 import './providers/user_provider.dart';
 import './providers/chef_provider.dart';
+
+import './widgets/home_auth_splash_controller.dart';
 
 void main() {
   runApp(MyApp());
@@ -27,6 +31,17 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    SharedPreferences prefs;
+    Future<Widget> displayOnboarding() async {
+      prefs = await SharedPreferences.getInstance();
+      bool onboardingVisibilityStatus = prefs.getBool('displayOnboarding');
+      if (onboardingVisibilityStatus == null) {
+        prefs.setBool('displayOnboarding', false);
+        return OnboardingScreen();
+      }
+      return null;
+    }
+
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
@@ -49,40 +64,35 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ],
-      child: Consumer<AuthenticationProvider>(
-        builder: (context, authData, _) => MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'Bakeology',
-          theme: ThemeData(
-            primarySwatch: Colors.pink,
-            accentColor: Colors.greenAccent[400],
-            fontFamily: 'Poppins',
-            visualDensity: VisualDensity.adaptivePlatformDensity,
-          ),
-          home: authData.isAuthenticated
-              ? HomeScreen()
-              : FutureBuilder(
-                  future: authData.tryAutoLogin(),
-                  builder: (ctx, authResultSnapshot) =>
-                      authResultSnapshot.connectionState ==
-                              ConnectionState.waiting
-                          ? SplashScreen()
-                          : AuthenticationScreen(),
-                ),
-          routes: {
-            HomeScreen.routeName: (ctx) => HomeScreen(),
-            RecipeDetailScreen.routeName: (ctx) => RecipeDetailScreen(),
-            ChefDetailScreen.routeName: (ctx) => ChefDetailScreen(),
-            CategorizedRecipesScreen.routeName: (ctx) =>
-                CategorizedRecipesScreen(),
-            AllCategoriesScreen.routeName: (ctx) => AllCategoriesScreen(),
-            FavouritesScreen.routeName: (ctx) => FavouritesScreen(),
-            AuthenticationScreen.routeName: (ctx) => AuthenticationScreen(),
-            AllRecipesScreen.routeName: (ctx) => AllRecipesScreen(),
-            ForgotPasswordScreen.routeName: (ctx) => ForgotPasswordScreen(),
-            AboutScreen.routeName: (ctx) => AboutScreen(),
-          },
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Bakeology',
+        theme: ThemeData(
+          primarySwatch: Colors.blueGrey,
+          accentColor: Colors.blueGrey[300],
+          fontFamily: 'Poppins',
+          visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
+        home: FutureBuilder(
+            future: displayOnboarding(),
+            builder: (ctx, snapshot) =>
+                snapshot.connectionState == ConnectionState.waiting
+                    ? SplashScreen()
+                    : HomeAuthSplashController()),
+        routes: {
+          HomeScreen.routeName: (ctx) => HomeScreen(),
+          RecipeDetailScreen.routeName: (ctx) => RecipeDetailScreen(),
+          ChefDetailScreen.routeName: (ctx) => ChefDetailScreen(),
+          CategorizedRecipesScreen.routeName: (ctx) =>
+              CategorizedRecipesScreen(),
+          AllCategoriesScreen.routeName: (ctx) => AllCategoriesScreen(),
+          FavouritesScreen.routeName: (ctx) => FavouritesScreen(),
+          AuthenticationScreen.routeName: (ctx) => AuthenticationScreen(),
+          AllRecipesScreen.routeName: (ctx) => AllRecipesScreen(),
+          ForgotPasswordScreen.routeName: (ctx) => ForgotPasswordScreen(),
+          AboutScreen.routeName: (ctx) => AboutScreen(),
+          OnboardingScreen.routeName: (ctx) => OnboardingScreen(),
+        },
       ),
     );
   }
