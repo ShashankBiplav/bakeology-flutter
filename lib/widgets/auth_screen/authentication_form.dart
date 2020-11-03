@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/authentication_provider.dart';
@@ -93,7 +94,8 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
           password: _authData['password'],
         );
       }
-      setState(() { //after successful signup change to login state
+      setState(() {
+        //after successful signup change to login state
         _authenticationMode = AuthenticationMode.LOGIN;
       });
     } on HttpException catch (error) {
@@ -254,8 +256,9 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
                     alignment: Alignment(1.0, 0.0),
                     padding: EdgeInsets.only(top: 15.0, left: 20.0),
                     child: InkWell(
-                      onTap: (){
-                        Navigator.of(context).pushNamed(ForgotPasswordScreen.routeName);
+                      onTap: () {
+                        Navigator.of(context)
+                            .pushNamed(ForgotPasswordScreen.routeName);
                       },
                       child: Text(
                         'Forgot Password',
@@ -269,7 +272,10 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
                   ),
                 SizedBox(height: widget.height * 0.05),
                 if (_isLoading)
-                  CircularProgressIndicator()
+                  SpinKitWanderingCubes(
+                    color: Theme.of(context).accentColor,
+                    size: 50,
+                  )
                 else
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,

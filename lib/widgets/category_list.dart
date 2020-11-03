@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import './category_list_item.dart';
 
@@ -33,7 +34,10 @@ class _CategoryListState extends State<CategoryList> {
     final fetchedCategories = categoryData.categories;
     return _isLoading
         ? Center(
-            child: CircularProgressIndicator(),
+            child: SpinKitWave(
+              color: Theme.of(context).accentColor,
+              size: 50,
+            ),
           )
         : Container(
             child: ListView.builder(

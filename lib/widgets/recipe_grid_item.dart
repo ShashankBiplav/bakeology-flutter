@@ -69,7 +69,7 @@ class RecipeGridItem extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: isPortrait ? height * 0.02 : height * 0.025),
+                SizedBox(height: isPortrait ? height * 0.01 : height * 0.025),
                 Text(
                   recipeTitle,
                   style: TextStyle(
@@ -108,7 +108,7 @@ class RecipeGridItem extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Container(
-                                  width: isPortrait ?width*0.2 :width*0.1,
+                                  width: isPortrait ? width * 0.2 : width * 0.1,
                                   child: Text(
                                     chefName,
                                     style: TextStyle(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import '../../screens/chef_detail_screen.dart';
 
@@ -19,7 +20,12 @@ class _StatefulButtonState extends State<StatefulButton> {
   @override
   Widget build(BuildContext context) {
     return _isLoading
-        ? Center(child: CircularProgressIndicator(),)
+        ? Center(
+            child: SpinKitChasingDots(
+              color: Theme.of(context).accentColor,
+              size: 30,
+            ),
+          )
         : NeumorphicButton(
             onPressed: () {
               setState(() {

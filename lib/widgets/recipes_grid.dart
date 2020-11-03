@@ -1,6 +1,6 @@
-import 'package:bakeology/providers/authentication_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import '../providers/recipe_provider.dart';
 import '../providers/user_provider.dart';
@@ -41,10 +41,13 @@ class _RecipesGridState extends State<RecipesGrid> {
     final fetchedRecipes = recipeData.recipes;
     return _isLoading
         ? Center(
-            child: CircularProgressIndicator(),
+            child: SpinKitWave(
+              color: Theme.of(context).accentColor,
+              size: 50,
+            ),
           )
         : GridView.builder(
-          shrinkWrap: true,
+            shrinkWrap: true,
             padding: const EdgeInsets.fromLTRB(10, 10, 10, 5),
             itemCount: fetchedRecipes.length,
             itemBuilder: (ctx, i) => RecipeGridItem(
