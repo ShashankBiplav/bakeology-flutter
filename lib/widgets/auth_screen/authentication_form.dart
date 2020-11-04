@@ -12,8 +12,6 @@ import '../../models/http_exception.dart';
 import '../../screens/home_screen.dart';
 import '../../screens/forgot_password_screen.dart';
 
-import '../../screens/onboarding_screen.dart';
-
 enum AuthenticationMode {
   SIGNUP,
   LOGIN,
@@ -161,8 +159,7 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
                           fontWeight: FontWeight.bold,
                           color: Colors.grey),
                       focusedBorder: UnderlineInputBorder(
-                        borderSide:
-                            BorderSide(color: Colors.greenAccent[700]),
+                        borderSide: BorderSide(color: Colors.greenAccent[700]),
                       ),
                     ),
                     validator: _authenticationMode == AuthenticationMode.SIGNUP
@@ -188,8 +185,7 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
                         fontWeight: FontWeight.bold,
                         color: Colors.grey),
                     focusedBorder: UnderlineInputBorder(
-                      borderSide:
-                          BorderSide(color: Colors.greenAccent[700]),
+                      borderSide: BorderSide(color: Colors.greenAccent[700]),
                     ),
                   ),
                   validator: (value) {
@@ -209,8 +205,7 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
                         fontWeight: FontWeight.bold,
                         color: Colors.grey),
                     focusedBorder: UnderlineInputBorder(
-                      borderSide:
-                          BorderSide(color: Colors.greenAccent[700]),
+                      borderSide: BorderSide(color: Colors.greenAccent[700]),
                     ),
                   ),
                   obscureText: true,
@@ -236,8 +231,7 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
                           fontWeight: FontWeight.bold,
                           color: Colors.grey),
                       focusedBorder: UnderlineInputBorder(
-                        borderSide:
-                            BorderSide(color: Colors.greenAccent[700]),
+                        borderSide: BorderSide(color: Colors.greenAccent[700]),
                       ),
                     ),
                     obscureText: true,

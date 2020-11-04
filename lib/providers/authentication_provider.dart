@@ -39,7 +39,7 @@ class AuthenticationProvider with ChangeNotifier {
   }
 
   String get email {
-     if (_expiryDate != null &&
+    if (_expiryDate != null &&
         _expiryDate.isAfter(DateTime.now()) &&
         _token != null) {
       return _email;
@@ -116,7 +116,7 @@ class AuthenticationProvider with ChangeNotifier {
         {
           'token': _token,
           'userId': _userId,
-          'email' : _email,
+          'email': _email,
           'expiryDate': _expiryDate.toIso8601String(),
         },
       );
@@ -169,5 +169,70 @@ class AuthenticationProvider with ChangeNotifier {
     notifyListeners();
     _autoLogout();
     return true;
+  }
+
+  //send OTP function
+  Future<void> sendOTP({String email}) async {
+    const url = 'https://bakeology-alpha-stage.herokuapp.com/auth/user/get-otp';
+    try {
+      final response = await http.post(
+        url,
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(<String, String>{'email': email}),
+      );
+      final statusCode = response.statusCode;
+      final responseData = jsonDecode(response.body);
+      if (statusCode == 200) {
+        // print(responseData);
+        // print(statusCode);
+      } else if (statusCode >= 400) {
+        // print('Not Authorized');
+        // print(responseData);
+        // print(statusCode);
+        throw HttpException(responseData['message']);
+      }
+      notifyListeners();
+    } catch (error) {
+      // print(error);
+      // print('catch block called');
+      throw error;
+    }
+  }
+
+  //reset password function
+  Future<void> resetPassword(
+      {String email, String otp, String newPassword}) async {
+    const url =
+        'https://bakeology-alpha-stage.herokuapp.com/auth/user/reset-password';
+    try {
+      final response = await http.post(
+        url,
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(<String, String>{
+          'email': email,
+          'otp': otp,
+          'password': newPassword
+        }),
+      );
+      final statusCode = response.statusCode;
+      final responseData = jsonDecode(response.body);
+      if (statusCode == 201) {
+        // print(responseData);
+        // print(statusCode);
+      } else if (statusCode >= 400) {
+        // print('Not Authorized');
+        // print(responseData);
+        throw HttpException(responseData['message']);
+      }
+      notifyListeners();
+    } catch (error) {
+      // print(error);
+      // print('catch block called');
+      throw error;
+    }
   }
 }
