@@ -21,6 +21,7 @@ class RecipeGridItem extends StatelessWidget {
       @required this.duration});
   @override
   Widget build(BuildContext context) {
+    double pixelRatio = MediaQuery.of(context).devicePixelRatio;
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     bool isPortrait =
@@ -60,7 +61,9 @@ class RecipeGridItem extends StatelessWidget {
                     tag: recipeId,
                     child: Container(
                       margin: EdgeInsets.fromLTRB(3, 0, 3, 0),
-                      height: isPortrait ? height * 0.19 : height * 0.35,
+                      height: (pixelRatio >= 2.5 || pixelRatio <= 3.5)
+                          ? (isPortrait ? height * 0.2 : height * 0.38)
+                          : (isPortrait ? height * 0.19 : height * 0.35),
                       child: Image.network(
                         'https://bakeology-alpha-stage.herokuapp.com/' +
                             recipeImageUrl,
@@ -69,7 +72,10 @@ class RecipeGridItem extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: isPortrait ? height * 0.01 : height * 0.025),
+                SizedBox(
+                    height: (pixelRatio >= 2.5 || pixelRatio <= 3.5)
+                        ? (isPortrait ? height * 0.015 : height * 0.025)
+                        : (isPortrait ? height * 0.01 : height * 0.025)),
                 Text(
                   recipeTitle,
                   style: TextStyle(
@@ -78,7 +84,10 @@ class RecipeGridItem extends StatelessWidget {
                     fontSize: 18,
                   ),
                 ),
-                SizedBox(height: isPortrait ? height * 0.01 : height * 0.025),
+                SizedBox(
+                    height: (pixelRatio >= 2.5 || pixelRatio <= 3.5)
+                        ? (isPortrait ? height * 0.015 : height * 0.01)
+                        : (isPortrait ? height * 0.01 : height * 0.025)),
                 Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.center,

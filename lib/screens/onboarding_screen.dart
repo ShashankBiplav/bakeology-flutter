@@ -25,7 +25,7 @@ class OnboardingScreen extends StatelessWidget {
         body:
             "Browse through our recipe collections.\nNothing as creative as cooking. Cooking will never break your heart.",
         footer: NeumorphicText(
-          'Bakeology is Fun',
+          'Bake<o>logy is Fun',
           style:
               NeumorphicStyle(depth: 3, intensity: 1, color: Colors.grey[700]),
           textStyle: NeumorphicTextStyle(

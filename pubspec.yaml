@@ -27,18 +27,8 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_launcher_icons: ^0.8.1
-
-flutter_icons:
-  ios: true
-  android: true
-  image_path_android: "assets/images/logo.png"
-  image_path_ios: "assets/images/logo.png"
-  adaptive_icon_background: "assets/images/background.png"
-  adaptive_icon_foreground: "assets/images/foreground.png"
 
 flutter:
-
   uses-material-design: true
 
   assets:
@@ -58,5 +48,4 @@ flutter:
         - asset: assets/fonts/Poppins/Poppins-Medium.ttf
         - asset: assets/fonts/Poppins/Poppins-Regular.ttf
           weight: 700
-  # For details regarding fonts from package dependencies,
-  # see https://flutter.dev/custom-fonts/#from-packages
+  
