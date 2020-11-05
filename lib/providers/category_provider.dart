@@ -36,7 +36,7 @@ class CategoryProvider with ChangeNotifier {
       _categories = loadedCategories;
       notifyListeners();
     } catch (error) {
-      print(error);
+      // print(error);
       throw error;
     }
   }

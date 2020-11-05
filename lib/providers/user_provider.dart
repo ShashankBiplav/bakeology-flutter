@@ -55,10 +55,10 @@ class UserProvider with ChangeNotifier {
         );
       });
       _favouriteRecipes = loadedRecipes;
-      print(' fav recipes         ...............${_favouriteRecipes}');
+      // print(' fav recipes         ...............${_favouriteRecipes}');
       notifyListeners();
     } catch (error) {
-      print(error);
+      // print(error);
       throw error;
     }
   }
@@ -79,12 +79,12 @@ class UserProvider with ChangeNotifier {
         },
       );
       final extractedData = json.decode(response.body) as Map<String, dynamic>;
-      print(extractedData);
+      // print(extractedData);
       if (response.statusCode >= 400) {
         _favouriteRecipes = originalFavouriteRecipes;
       }
     } catch (error) {
-      print(error);
+      // print(error);
       throw error;
     }
   }
@@ -110,7 +110,7 @@ class UserProvider with ChangeNotifier {
         _favouriteRecipes = originalFavouriteRecipes;
       }
     } catch (error) {
-      print(error);
+      // print(error);
       throw error;
     }
   }

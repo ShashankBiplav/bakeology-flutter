@@ -14,7 +14,6 @@ class FavouritesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final userFavourites = Provider.of<UserProvider>(context).favouriteRecipes;
     final favouritesArrayLength = userFavourites.length;
-    print(favouritesArrayLength);
     return Scaffold(
       backgroundColor: Color.fromRGBO(227, 234, 237, 1),
       appBar: AppBar(

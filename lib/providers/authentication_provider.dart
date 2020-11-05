@@ -65,11 +65,11 @@ class AuthenticationProvider with ChangeNotifier {
       final statusCode = response.statusCode;
       final responseData = jsonDecode(response.body);
       if (statusCode == 201) {
-        print(responseData);
+        // print(responseData);
         print(statusCode);
       } else if (statusCode == 401) {
-        print('Not Authorized');
-        print(responseData);
+        // print('Not Authorized');
+        // print(responseData);
         throw HttpException(responseData['message']);
       }
     } catch (error) {
@@ -92,11 +92,11 @@ class AuthenticationProvider with ChangeNotifier {
       final statusCode = response.statusCode;
       final responseData = jsonDecode(response.body);
       if (statusCode == 200) {
-        print(responseData);
+        // print(responseData);
         print(statusCode);
       } else if (statusCode == 401) {
-        print('Not Authorized');
-        print(responseData);
+        // print('Not Authorized');
+        // print(responseData);
         throw HttpException(responseData['message']);
       }
       _token = responseData['token'];
@@ -122,8 +122,8 @@ class AuthenticationProvider with ChangeNotifier {
       );
       prefs.setString('userData', userData);
     } catch (error) {
-      print(error);
-      print('catch block called');
+      // print(error);
+      // print('catch block called');
       throw error;
     }
   }

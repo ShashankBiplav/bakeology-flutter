@@ -66,10 +66,6 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
 
   // function for form submission and valiadtion
   Future<void> _submit() async {
-    print('Submit called');
-    print(_authData['name']);
-    print(_authData['email']);
-    print(_authData['password']);
     if (!_formKey.currentState.validate()) {
       //Invalid
       return;

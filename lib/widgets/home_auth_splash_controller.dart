@@ -13,7 +13,6 @@ class HomeAuthSplashController extends StatelessWidget {
   Widget build(BuildContext context) {
     bool _isAuthenticated =
         Provider.of<AuthenticationProvider>(context).isAuthenticated;
-    print(_isAuthenticated);
     return _isAuthenticated
         ? HomeScreen()
         : FutureBuilder(

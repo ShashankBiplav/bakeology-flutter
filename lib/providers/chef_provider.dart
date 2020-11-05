@@ -22,7 +22,7 @@ class ChefProvider with ChangeNotifier {
       if (extractedData == null) {
         return null;
       }
-      print(extractedData["chef"]["recipes"][0]["chef"]);
+      // print(extractedData["chef"]["recipes"][0]["chef"]);
       final List<Recipe> loadedRecipes = [];
       extractedData["chef"]["recipes"].forEach((recipeData) {
         loadedRecipes.add(
@@ -56,7 +56,7 @@ class ChefProvider with ChangeNotifier {
       );
       notifyListeners();
     } catch (error) {
-      print(error);
+      // print(error);
       throw error;
     }
   }
