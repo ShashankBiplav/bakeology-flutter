@@ -61,8 +61,11 @@ class CategoryListItem extends StatelessWidget {
                     margin: const EdgeInsets.only(right: 5, top: 5),
                     height: 30,
                     width: 30,
-                    child: Image.network(
-                        'https://bakeology-alpha-stage.herokuapp.com/$iconImageUrl'),
+                    child: FadeInImage(
+                      placeholder: AssetImage('assets/images/foreground.png'),
+                      image: NetworkImage(
+                          'https://bakeology-alpha-stage.herokuapp.com/$iconImageUrl'),
+                    ),
                   ),
                 ],
               ),

@@ -64,9 +64,12 @@ class RecipeGridItem extends StatelessWidget {
                       height: (pixelRatio >= 2.5 || pixelRatio <= 3.5)
                           ? (isPortrait ? height * 0.2 : height * 0.38)
                           : (isPortrait ? height * 0.19 : height * 0.35),
-                      child: Image.network(
-                        'https://bakeology-alpha-stage.herokuapp.com/' +
-                            recipeImageUrl,
+                      child: FadeInImage(
+                        placeholder: AssetImage('assets/images/foreground.png'),
+                        image: NetworkImage(
+                          'https://bakeology-alpha-stage.herokuapp.com/' +
+                              recipeImageUrl,
+                        ),
                         fit: BoxFit.cover,
                       ),
                     ),

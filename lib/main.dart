@@ -22,6 +22,8 @@ import './providers/chef_provider.dart';
 import './widgets/home_auth_splash_controller.dart';
 import './widgets/onboarding_controller.dart';
 
+import './helpers/custom_route.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -60,6 +62,12 @@ class MyApp extends StatelessWidget {
           accentColor: Colors.blueGrey[300],
           fontFamily: 'Poppins',
           visualDensity: VisualDensity.adaptivePlatformDensity,
+          pageTransitionsTheme: PageTransitionsTheme(
+            builders: {
+              TargetPlatform.android: CustomPageTransitionBuilder(),
+              TargetPlatform.iOS: CustomPageTransitionBuilder(),
+            },
+          ),
         ),
         home: OnboardingController(),
         routes: {

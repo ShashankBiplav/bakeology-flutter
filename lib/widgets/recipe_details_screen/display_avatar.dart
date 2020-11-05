@@ -11,7 +11,16 @@ class DisplayAvatar extends StatelessWidget {
       child: CircleAvatar(
         radius: 25,
         backgroundColor: Colors.white70,
-        backgroundImage: NetworkImage(imageUrl),
+        backgroundImage: AssetImage('assets/images/profile_placeholder.png'),
+        child: AspectRatio(
+          aspectRatio: 1 / 1,
+          child: ClipOval(
+            child: Image.network(
+              imageUrl,
+              fit: BoxFit.fill,
+            ),
+          ),
+        ),
       ),
     );
   }
