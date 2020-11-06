@@ -222,9 +222,9 @@ class AuthenticationProvider with ChangeNotifier {
       final responseData = jsonDecode(response.body);
       if (statusCode == 201) {
         // print(responseData);
-        // print(statusCode);
+        print(statusCode);
       } else if (statusCode >= 400) {
-        // print('Not Authorized');
+        print('Not Authorized');
         // print(responseData);
         throw HttpException(responseData['message']);
       }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import '../providers/authentication_provider.dart';
 
@@ -74,14 +75,13 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         await Provider.of<AuthenticationProvider>(context, listen: false)
             .resetPassword(
           email: _formData['email'],
-          otp: _formData['name'],
+          otp: _formData['otp'],
           newPassword: _formData['password'],
         );
+        setState(() {
+          Navigator.of(context).pushReplacementNamed('/');
+        });
       }
-      setState(() {
-        //after successful reset password to initial state state
-        _formMode = FormMode.REQUEST;
-      });
     } on HttpException catch (error) {
       var errorMessage = 'Something Went Wrong! Please try again later.';
       if (error.toString().contains('email doesn\'t exist')) {
@@ -119,226 +119,245 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Form(
-          key: _formKey,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 30),
-              Padding(
-                padding: const EdgeInsets.only(left: 15),
-                child: NeumorphicText(
-                  _formMode == FormMode.REQUEST ? 'Oops,' : 'Okay,',
-                  style: NeumorphicStyle(
-                      depth: 4, intensity: 1, color: Colors.blueGrey),
-                  textStyle: NeumorphicTextStyle(
-                      fontSize: 70,
-                      fontFamily: 'Poppins',
-                      fontWeight: FontWeight.bold),
-                ),
+      body: _isLoading
+          ? Center(
+              child: SpinKitWave(
+                color: Theme.of(context).accentColor,
+                size: 50,
               ),
-              SizedBox(height: 10),
-              Padding(
-                padding: const EdgeInsets.only(left: 15),
-                child: Text(
-                  _formMode == FormMode.REQUEST
-                      ? 'Seems like you forgot your password !'
-                      : 'OTP has been sent to \n${_formData['email']}\n \nEnter OTP and your new Password.',
-                  style: TextStyle(
-                    color: Colors.blueGrey,
-                    fontSize: _formMode == FormMode.REQUEST ? 30 : 25,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-              ),
-              if (_formMode == FormMode.REQUEST) SizedBox(height: 30),
-              if (_formMode == FormMode.REQUEST)
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25),
-                  child: TextFormField(
-                    keyboardType: TextInputType.emailAddress,
-                    cursorColor: Colors.greenAccent[700],
-                    decoration: InputDecoration(
-                      labelText: 'EMAIL',
-                      labelStyle: TextStyle(
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.bold,
-                          color: Colors.grey),
-                      focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.greenAccent[700]),
+            )
+          : SingleChildScrollView(
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: 30),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 15),
+                      child: NeumorphicText(
+                        _formMode == FormMode.REQUEST ? 'Oops,' : 'Okay,',
+                        style: NeumorphicStyle(
+                            depth: 4, intensity: 1, color: Colors.blueGrey),
+                        textStyle: NeumorphicTextStyle(
+                            fontSize: 70,
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.bold),
                       ),
                     ),
-                    validator: (value) {
-                      return validateEmail(value); // helper function
-                    },
-                    onSaved: (value) {
-                      _formData['email'] = value;
-                    },
-                  ),
-                ),
-              if (_formMode == FormMode.REQUEST) SizedBox(height: 30),
-              if (_formMode == FormMode.REQUEST)
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 50),
-                  child: NeumorphicButton(
-                    onPressed: () {
-                      _submit();
-                    },
-                    child: Container(
-                      height: 40,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          NeumorphicIcon(
-                            Icons.mobile_friendly,
-                            size: 30,
-                            style: NeumorphicStyle(
-                              color: Colors.blue[800],
-                              shadowLightColor: Colors.blue[200],
-                              shadowDarkColor: Colors.blue[900],
+                    SizedBox(height: 10),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 15),
+                      child: Text(
+                        _formMode == FormMode.REQUEST
+                            ? 'Seems like you forgot your password !'
+                            : 'OTP has been sent to \n${_formData['email']}\n \nEnter OTP and your new Password.',
+                        style: TextStyle(
+                          color: Colors.blueGrey,
+                          fontSize: _formMode == FormMode.REQUEST ? 30 : 25,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ),
+                    if (_formMode == FormMode.REQUEST) SizedBox(height: 30),
+                    if (_formMode == FormMode.REQUEST)
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 25),
+                        child: TextFormField(
+                          keyboardType: TextInputType.emailAddress,
+                          cursorColor: Colors.greenAccent[700],
+                          decoration: InputDecoration(
+                            labelText: 'EMAIL',
+                            labelStyle: TextStyle(
+                                fontFamily: 'Poppins',
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.greenAccent[700]),
                             ),
                           ),
-                          Text(
-                            'Request OTP',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 15,
-                                color: Colors.grey[700]),
+                          validator: (value) {
+                            return validateEmail(value); // helper function
+                          },
+                          onSaved: (value) {
+                            _formData['email'] = value;
+                          },
+                        ),
+                      ),
+                    if (_formMode == FormMode.REQUEST) SizedBox(height: 30),
+                    if (_formMode == FormMode.REQUEST)
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 50),
+                        child: NeumorphicButton(
+                          onPressed: () {
+                            _submit().then((_) {
+                              setState(() {
+                                _formMode = FormMode.OTP_SENT;
+                              });
+                            });
+                          },
+                          child: Container(
+                            height: 40,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                NeumorphicIcon(
+                                  Icons.mobile_friendly,
+                                  size: 30,
+                                  style: NeumorphicStyle(
+                                    color: Colors.blue[800],
+                                    shadowLightColor: Colors.blue[200],
+                                    shadowDarkColor: Colors.blue[900],
+                                  ),
+                                ),
+                                Text(
+                                  'Request OTP',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 15,
+                                      color: Colors.grey[700]),
+                                ),
+                              ],
+                            ),
                           ),
-                        ],
+                        ),
                       ),
-                    ),
-                  ),
-                ),
-              SizedBox(height: 20),
-              if (_formMode == FormMode.OTP_SENT)
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25),
-                  child: TextFormField(
-                    keyboardType: TextInputType.number,
-                    cursorColor: Colors.greenAccent[700],
-                    decoration: InputDecoration(
-                      labelText: 'OTP',
-                      labelStyle: TextStyle(
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.bold,
-                          color: Colors.grey),
-                      focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.greenAccent[700]),
-                      ),
-                    ),
-                    // ignore: missing_return
-                    validator: (value) {
-                      if (value.isEmpty || value.length < 5) {
-                        return 'OTP too short!';
-                      }
-                    },
-                    onSaved: (value) {
-                      _formData['otp'] = value;
-                    },
-                  ),
-                ),
-              if (_formMode == FormMode.OTP_SENT) SizedBox(height: 30),
-              if (_formMode == FormMode.OTP_SENT)
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25),
-                  child: TextFormField(
-                    enabled: _formMode == FormMode.OTP_SENT,
-                    keyboardType: TextInputType.text,
-                    cursorColor: Colors.greenAccent[700],
-                    decoration: InputDecoration(
-                      labelText: 'NEW PASSWORD',
-                      labelStyle: TextStyle(
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.bold,
-                          color: Colors.grey),
-                      focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.greenAccent[700]),
-                      ),
-                    ),
-                    obscureText: true,
-                    // ignore: missing_return
-                    validator: (value) {
-                      if (value.isEmpty || value.length < 5) {
-                        return 'Password too short!';
-                      }
-                    },
-                    onSaved: (value) {
-                      _formData['password'] = value;
-                    },
-                  ),
-                ),
-              if (_formMode == FormMode.OTP_SENT) SizedBox(height: 30),
-              if (_formMode == FormMode.OTP_SENT)
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25),
-                  child: TextFormField(
-                    enabled: _formMode == FormMode.OTP_SENT,
-                    controller: _passwordController,
-                    keyboardType: TextInputType.text,
-                    cursorColor: Colors.greenAccent[700],
-                    decoration: InputDecoration(
-                      labelText: 'CONFIRM PASSWORD',
-                      labelStyle: TextStyle(
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.bold,
-                          color: Colors.grey),
-                      focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.greenAccent[700]),
-                      ),
-                    ),
-                    obscureText: true,
-                    validator: _formMode == FormMode.OTP_SENT
-                        // ignore: missing_return
-                        ? (value) {
-                            if (value != _passwordController.text) {
-                              return 'Passwords do not match!';
+                    SizedBox(height: 20),
+                    if (_formMode == FormMode.OTP_SENT)
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 25),
+                        child: TextFormField(
+                          enabled: _formMode == FormMode.OTP_SENT,
+                          keyboardType: TextInputType.number,
+                          cursorColor: Colors.greenAccent[700],
+                          decoration: InputDecoration(
+                            labelText: 'OTP',
+                            labelStyle: TextStyle(
+                                fontFamily: 'Poppins',
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.greenAccent[700]),
+                            ),
+                          ),
+                          controller: TextEditingController()..text = '',
+                          // ignore: missing_return
+                          validator: (value) {
+                            if (value.isEmpty || value.length < 5) {
+                              return 'OTP too short!';
                             }
-                          }
-                        : null,
-                    onSaved: (value) {},
-                  ),
-                ),
-              if (_formMode == FormMode.OTP_SENT) SizedBox(height: 30),
-              if (_formMode == FormMode.OTP_SENT)
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 50),
-                  child: NeumorphicButton(
-                    onPressed: () {
-                      _submit();
-                    },
-                    child: Container(
-                      height: 40,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          NeumorphicIcon(
-                            Icons.vpn_key_rounded,
-                            size: 30,
-                            style: NeumorphicStyle(
-                              color: Colors.purple[800],
-                              shadowLightColor: Colors.purple[200],
-                              shadowDarkColor: Colors.purple[900],
+                          },
+                          onSaved: (value) {
+                            _formData['otp'] = value;
+                          },
+                        ),
+                      ),
+                    if (_formMode == FormMode.OTP_SENT) SizedBox(height: 30),
+                    if (_formMode == FormMode.OTP_SENT)
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 25),
+                        child: TextFormField(
+                          enabled: _formMode == FormMode.OTP_SENT,
+                          keyboardType: TextInputType.text,
+                          cursorColor: Colors.greenAccent[700],
+                          decoration: InputDecoration(
+                            labelText: 'NEW PASSWORD',
+                            labelStyle: TextStyle(
+                                fontFamily: 'Poppins',
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.greenAccent[700]),
                             ),
                           ),
-                          Text(
-                            'Change Password',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 15,
-                                color: Colors.grey[700]),
-                          ),
-                        ],
+                          obscureText: true,
+                          // ignore: missing_return
+                          validator: (value) {
+                            if (value.isEmpty || value.length < 5) {
+                              return 'Password too short!';
+                            }
+                          },
+                          onSaved: (value) {
+                            _formData['password'] = value;
+                          },
+                        ),
                       ),
-                    ),
-                  ),
+                    if (_formMode == FormMode.OTP_SENT) SizedBox(height: 30),
+                    if (_formMode == FormMode.OTP_SENT)
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 25),
+                        child: TextFormField(
+                          enabled: _formMode == FormMode.OTP_SENT,
+                          controller: _passwordController,
+                          keyboardType: TextInputType.text,
+                          cursorColor: Colors.greenAccent[700],
+                          decoration: InputDecoration(
+                            labelText: 'CONFIRM PASSWORD',
+                            labelStyle: TextStyle(
+                                fontFamily: 'Poppins',
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.greenAccent[700]),
+                            ),
+                          ),
+                          obscureText: true,
+                          validator: _formMode == FormMode.OTP_SENT
+                              // ignore: missing_return
+                              ? (value) {
+                                  if (value != _passwordController.text) {
+                                    return 'Passwords do not match!';
+                                  }
+                                }
+                              : null,
+                          onSaved: (value) {},
+                        ),
+                      ),
+                    if (_formMode == FormMode.OTP_SENT) SizedBox(height: 30),
+                    if (_formMode == FormMode.OTP_SENT)
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 50),
+                        child: NeumorphicButton(
+                          onPressed: () {
+                            _submit().then((_) {
+                              Navigator.of(context).pushReplacementNamed('/');
+                            });
+                          },
+                          child: Container(
+                            height: 40,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                NeumorphicIcon(
+                                  Icons.vpn_key_rounded,
+                                  size: 30,
+                                  style: NeumorphicStyle(
+                                    color: Colors.purple[800],
+                                    shadowLightColor: Colors.purple[200],
+                                    shadowDarkColor: Colors.purple[900],
+                                  ),
+                                ),
+                                Text(
+                                  'Change Password',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 15,
+                                      color: Colors.grey[700]),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                  ],
                 ),
-            ],
-          ),
-        ),
-      ),
+              ),
+            ),
     );
   }
 }
