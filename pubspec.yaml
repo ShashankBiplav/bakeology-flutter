@@ -4,7 +4,7 @@ description: An awesome Food Recipe app that makes your tastebuds dripping and
 
 publish_to: 'none'
 
-version: 1.0.0+1
+version: 0.0.0+1
 
 environment:
   sdk: '>=2.7.0 <3.0.0'

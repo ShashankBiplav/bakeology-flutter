@@ -1,4 +1,4 @@
-package com.dareleap.bakeology
+package com.certainbits.bakeology
 
 import io.flutter.embedding.android.FlutterActivity
 
