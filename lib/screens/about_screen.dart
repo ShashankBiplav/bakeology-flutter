@@ -93,7 +93,7 @@ class AboutScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(30.0),
               child: Text(
-                'I am an aspiring software developer and always a proud Indian 🇮🇳 . I love to build apps and services. \n\n I hope you loved this app. Its design principles are based on Neumorphism. \n\n I would love to hear your Story and convert your Ideas & Dreams to reality. Leave me a mail or give a call.',
+                'I am an aspiring software developer and always a proud Indian 🇮🇳 . I love to build apps and services. \n\n Bakeology is made with lots of love 💜. I hope you loved this app. Its design principles are based on Neumorphism. \n\n I would love to hear your Story and convert your Ideas & Dreams to reality. Leave me a mail or give a call.',
                 textAlign: TextAlign.center,
               ),
             ),
